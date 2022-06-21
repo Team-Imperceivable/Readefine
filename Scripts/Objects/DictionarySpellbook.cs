@@ -45,6 +45,20 @@ public class DictionarySpellbook
         return false;
     }
 
+    public string SwapWord(string word)
+    {
+        for(int i = 0; i < words.Length; i++)
+        {
+            if (words[i].Equals(word))
+            {
+                string oldWord = words[i];
+                words[i] = word;
+                return oldWord;
+            }
+        }
+        return null;
+    }
+
     public void SetSize(int newSize)
     {
         string[] wordsCopy = new string[newSize];
