@@ -330,6 +330,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [Header("Interact")]
     [SerializeField] private LayerMask interactableLayers;
     [SerializeField] private string objectLayerName = "Object";
+    private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+    private Canvas definitionWindow;
+
     private void CheckInteract()
     {
         if(Inputs.Interact)
@@ -343,7 +346,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                 if(hitObject.tag.Equals("Player"))
                 {
                     //Open Spellbook
-                    Canvas spellbookWindow = gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
                     if (spellbookWindow != null)
                         spellbookWindow.enabled = !spellbookWindow.enabled;
                     else
@@ -351,9 +353,26 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                 } else if(LayerMask.LayerToName(hitObject.layer).Equals(objectLayerName))
                 {
                     //Open object definition
-                    Canvas definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
-                    if(definitionWindow != null)
-                        definitionWindow.enabled = !definitionWindow.enabled;
+                    if(definitionWindow == null)
+                    {
+                        //If no window stored, store it and enable it
+                        definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                        definitionWindow.enabled = true;
+                    }
+                    else
+                    {
+                        //Disable stored window and open new one
+                        Canvas newWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                        if(newWindow != definitionWindow)
+                        {
+                            definitionWindow.enabled = false;
+                            newWindow.enabled = true;
+                            definitionWindow = newWindow;
+                        } else
+                        {
+                            definitionWindow.enabled = !definitionWindow.enabled;
+                        }
+                                            }
                 }
             }
         }
