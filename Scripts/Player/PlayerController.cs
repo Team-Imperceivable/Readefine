@@ -343,14 +343,17 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                 if(hitObject.tag.Equals("Player"))
                 {
                     //Open Spellbook
+                    Canvas spellbookWindow = gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                    if (spellbookWindow != null)
+                        spellbookWindow.enabled = !spellbookWindow.enabled;
+                    else
+                        Debug.Log("Returned Null");
                 } else if(LayerMask.LayerToName(hitObject.layer).Equals(objectLayerName))
                 {
                     //Open object definition
                     Canvas definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
                     if(definitionWindow != null)
-                    {
                         definitionWindow.enabled = !definitionWindow.enabled;
-                    }
                 }
             }
         }
