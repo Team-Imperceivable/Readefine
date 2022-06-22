@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DictionaryObject : MonoBehaviour
 {
     [Header("Initialization Variables")]
-    [SerializeField] private string[] swappables;
+    [SerializeField] public string swappable;
     
     public string sentence;
     public Definition definition;
@@ -14,13 +15,9 @@ public class DictionaryObject : MonoBehaviour
     void Start()
     {
         //Creates the definition, has to be inside a method so it's here
-        if(swappables != null)
-        {
-            definition = new Definition(sentence, swappables);
-        } else
-        {
-            definition = new Definition(sentence);
-        }
+        definition = new Definition(sentence, swappable);
+
+        UpdateText();
     }
 
     // Update is called once per frame
@@ -31,8 +28,8 @@ public class DictionaryObject : MonoBehaviour
 
     #region PROPERTIES
     [Header("Properties")]
-    [SerializeField] private string[][] solutions;
-    
+    [SerializeField] private string[] solutions;
+    [SerializeField] private Text definitionTextBox;
     /// <summary>
     /// Checks if the definition will alter the properties of the object
     /// </summary>
@@ -41,21 +38,19 @@ public class DictionaryObject : MonoBehaviour
     /// </returns>
     public bool Solved()
     {
-        Dictionary<string, int> keywords = definition.GetKeywords();
-        foreach(string[] solution in solutions)
+        foreach(string solution in solutions)
         {
-            bool solutionCorrect = true;
-            for(int i = 0; i < solution.Length; i++)
+            if(solution.Equals(swappable))
             {
-                if (keywords["solution"] != i)
-                {
-                    solutionCorrect = false;
-                }
+                return true;
             }
-            if (solutionCorrect)
-                return solutionCorrect;
         }
         return false;
+    }
+
+    public void UpdateText()
+    {
+        definitionTextBox.text = definition.GetDefinition();
     }
 
     /// <summary>
@@ -70,9 +65,10 @@ public class DictionaryObject : MonoBehaviour
     /// <returns>
     /// The word that is getting swapped out
     /// </returns>
-    public string SwapWord(string target, string newWord)
+    public string SwapWord(string newWord)
     {
-        return definition.Swap(target, newWord);
+        swappable = newWord;
+        return definition.Swap(swappable);
     }
     
 

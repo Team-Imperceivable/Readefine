@@ -3,8 +3,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class UIWindowBase : MonoBehaviour, IDragHandler
+public class UIWindowBase : MonoBehaviour, IDragHandler, IPointerClickHandler
 {
+	public PlayerController player;
+	public DictionaryObject parent;
+
 	RectTransform m_transform = null;
 	
 	// Use this for initialization
@@ -24,4 +27,19 @@ public class UIWindowBase : MonoBehaviour, IDragHandler
 		
 		// magic : add zone clamping if's here.
 	}
+
+	public void OnPointerClick(PointerEventData eventData)
+    {
+		//Swap words
+		if(eventData.button == PointerEventData.InputButton.Right)
+        {
+			
+			string parentKeyword = parent.SwapWord(player.spellbook.GetWord());
+			player.spellbook.SetWord(parentKeyword);
+			Debug.Log("Spellbook: " + player.spellbook.GetWord());
+			Debug.Log("Object: " + parent.swappable);
+			parent.UpdateText();
+			player.UpdateSpellbook();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Hey!
@@ -47,7 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void Start()
     {
-        spellbook = new DictionarySpellbook(spellbookSize);
+        spellbook = new DictionarySpellbook(startingWord);
     }
 
     #region Gather Inputs
@@ -347,9 +348,18 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                 {
                     //Open Spellbook
                     if (spellbookWindow != null)
-                        spellbookWindow.enabled = !spellbookWindow.enabled;
-                    else
-                        Debug.Log("Returned Null");
+                    {
+                        if(spellbookWindow.enabled)
+                        {
+                            spellbookWindow.enabled = false;
+                        } else
+                        {
+                            //Update window and enable it
+                            Text spellbookText = gameObject.GetComponentInChildren(typeof(Text), true) as Text;
+                            spellbookText.text = spellbook.GetWord();
+                            spellbookWindow.enabled = true;
+                        }
+                    }
                 } else if(LayerMask.LayerToName(hitObject.layer).Equals(objectLayerName))
                 {
                     //Open object definition
@@ -358,6 +368,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                         //If no window stored, store it and enable it
                         definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
                         definitionWindow.enabled = true;
+                        DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
+                        dictObj.UpdateText();
                     }
                     else
                     {
@@ -368,11 +380,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                             definitionWindow.enabled = false;
                             newWindow.enabled = true;
                             definitionWindow = newWindow;
+                            DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
+                            dictObj.UpdateText();
                         } else
                         {
                             definitionWindow.enabled = !definitionWindow.enabled;
                         }
-                                            }
+                    }
                 }
             }
         }
@@ -380,8 +394,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #endregion
 
     #region Spellbook
-    [SerializeField] private int spellbookSize = 3;
-    private DictionarySpellbook spellbook;
-
+    [SerializeField] private string startingWord;
+    public DictionarySpellbook spellbook;
+    
+    public void UpdateSpellbook()
+    {
+        Text spellbookText = gameObject.GetComponentInChildren(typeof(Text)) as Text;
+        spellbookText.text = spellbook.GetWord();
+    }
     #endregion
 }

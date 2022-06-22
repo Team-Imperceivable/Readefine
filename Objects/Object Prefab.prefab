@@ -214,10 +214,10 @@ RectTransform:
   m_Father: {fileID: 4548183065799058423}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 206, y: 69.20001}
+  m_SizeDelta: {x: 306, y: 169.20001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6929060751639728254
 CanvasRenderer:
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 6929060752300316204}
   - component: {fileID: 7071956401281932447}
   - component: {fileID: 5642912539765322769}
+  - component: {fileID: 5504086457195555323}
   m_Layer: 7
   m_Name: Object Prefab
   m_TagString: Untagged
@@ -391,6 +392,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5504086457195555323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929060752300316205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b120cec60138af34ba6091f81a5c2be2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swappable: definition
+  sentence: object definition
+  solutions: []
+  definitionTextBox: {fileID: 6929060752804324276}
 --- !u!1 &6929060752804324278
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4548183065799058423}
+  - component: {fileID: 2589449241920506588}
   m_Layer: 5
   m_Name: Object Window
   m_TagString: Untagged
@@ -510,5 +528,19 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 320, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 300, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2589449241920506588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970538142563490877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b20cc10bf6c7e94c94c57831fc5ffd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  parent: {fileID: 5504086457195555323}

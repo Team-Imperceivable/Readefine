@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class DictionarySpellbook
 {
-    string[] words;
-    /// <summary>
-    /// Creates a DictionarySpellbook object
-    /// </summary>
-    /// <param name="spellbookSize">
-    /// The number of slots the spellbook has
-    /// </param>
-    public DictionarySpellbook(int spellbookSize)
+    string word;
+    public DictionarySpellbook(string startingWord)
     {
-        words = new string[spellbookSize];
-        for(int i = 0; i < spellbookSize; i++)
-        {
-            words[i] = "EMPTY";
-        }
+        word = startingWord;
     }
 
     /// <summary>
@@ -26,54 +16,21 @@ public class DictionarySpellbook
     /// <returns>
     /// The words in the spellbook
     /// </returns>
-    public string[] GetSpellbook()
+    public string GetWord()
     {
-        return words;
+        return word;
     }
 
-
-    /// <summary>
-    /// Adds a word to the spellbook
-    /// </summary>
-    /// <param name="word">
-    /// Word to be added to the spellbook
-    /// </param>
-    /// <returns>
-    /// If the word was succesfully added to the spellbook
-    /// </returns>
-    public bool AddWord(string word)
+    public void SetWord(string addedWord)
     {
-        for(int i = 0; i < words.Length; i++)
-        {
-            if (words[i].Equals("EMPTY"))
-            {
-                words[i] = word;
-                return true;
-            }
-        }
-        return false;
+        word = addedWord;        
     }
 
-    /// <summary>
-    /// Removes a word from the spellbook
-    /// </summary>
-    /// <param name="word">
-    /// Word to be removed from the spellbook
-    /// </param>
-    /// <returns>
-    /// If the word was successfully removed from the spellbook
-    /// </returns>
-    public bool RemoveWord(string word)
+    public string RemoveWord()
     {
-        for(int i = 0; i < words.Length; i++)
-        {
-            if (words[i].Equals(word))
-            {
-                words[i] = "EMPTY";
-                return true;
-            }
-        }
-        return false;
+        string wordCopy = word;
+        word = null;
+        return wordCopy;
     }
 
     /// <summary>
@@ -85,42 +42,10 @@ public class DictionarySpellbook
     /// <returns>
     /// The word that was swapped out
     /// </returns>
-    public string SwapWord(string word)
+    public string SwapWord(string newWord)
     {
-        for(int i = 0; i < words.Length; i++)
-        {
-            if (words[i].Equals(word))
-            {
-                string oldWord = words[i];
-                words[i] = word;
-                return oldWord;
-            }
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Changes the size of the spellbook
-    /// </summary>
-    /// <param name="newSize">
-    /// The new number of slots the spellbook has
-    /// </param>
-    public void SetSize(int newSize)
-    {
-        string[] wordsCopy = new string[newSize];
-        if (newSize > words.Length)
-        {
-            for (int i = 0; i < words.Length; i++)
-            {
-                wordsCopy[i] = words[i];
-            }
-            words = wordsCopy;
-        } else
-        {
-            for(int i = 0; i < wordsCopy.Length; i++)
-            {
-                wordsCopy[i] = words[i];
-            }
-        }
+        string wordCopy = word;
+        word = newWord;
+        return wordCopy;
     }
 }

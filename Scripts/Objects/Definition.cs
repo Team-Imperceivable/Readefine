@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Definition
 {
-    Dictionary<string, int> swapables;
+    string swappable;
     string sentence;
-    int nextSwapNumber;
 
     /// <summary>
     /// Creates a Definition object
@@ -14,32 +13,11 @@ public class Definition
     /// <param name="_sentence">
     /// The full sentence of the definition
     /// </param>
-    public Definition(string _sentence)
+    public Definition(string _sentence, string _swappable)
     {
         sentence = _sentence;
-        nextSwapNumber = 0;
+        swappable = _swappable;
     }
-
-    /// <summary>
-    /// Creates a Definition object
-    /// </summary>
-    /// <param name="_sentence">
-    /// The full sentence of the definition
-    /// </param>
-    /// <param name="swapableWords">
-    /// The words that are swappable
-    /// </param>
-    public Definition(string _sentence, string[] swapableWords)
-    {
-        sentence = _sentence;
-        for(int i = 0; i < swapableWords.Length; i++)
-        {
-            sentence.Replace(swapableWords[i], $"[{i}]");
-            swapables.Add(swapableWords[i], i);
-        }
-        nextSwapNumber = swapableWords.Length;
-    }
-
     /// <summary>
     /// Gets the definition in pure string form
     /// </summary>
@@ -49,55 +27,24 @@ public class Definition
     //TODO: Change so it only returns an array of the keywords
     public string GetDefinition()
     {
-        string definition = sentence;
-        foreach(KeyValuePair<string, int> kvp in swapables)
-        {
-            definition.Replace($"[{kvp.Value}]", kvp.Key);
-        }
-        return definition;
+        Debug.Log(sentence);
+        return sentence.Replace(swappable, $"[{swappable}]");
     }
 
-    /// <summary>
-    /// Returns the dictionary of swapable words.
-    /// </summary>
-    /// <returns>
-    /// The dictionary of swapable words
-    /// </returns>
-    public Dictionary<string, int> GetKeywords()
+    public string GetKeyword()
     {
-        return swapables;
+        return swappable;
     }
 
-    /// <summary>
-    /// Swaps a word in the definition, throws an error if the target or new value aren't in the defintiion.
-    /// </summary>
-    /// <param name="target">
-    /// Word that is getting swapped out
-    /// </param>
-    /// <param name="newValue">
-    /// Word that is getting swapped in
-    /// </param>
-    /// <returns>
-    /// The word that is getting swapped out
-    /// </returns>
-    public string Swap(string target, string newValue)
+    public string Swap(string word)
     {
-        int targetValue = swapables[target];
-        swapables.Remove(target);
-        swapables.Add(newValue, targetValue);
-        return target;
+        string swappableCopy = swappable;
+        swappable = word;
+        return swappableCopy;
     }
 
-    /// <summary>
-    /// Sets a word in the definition to be swappable
-    /// </summary>
-    /// <param name="word">
-    /// The word that will now be swappable.
-    /// </param>
     public void SetSwappable(string word)
     {
-        sentence.Replace(word, $"[{nextSwapNumber}]");
-        swapables.Add(word, nextSwapNumber);
-        nextSwapNumber++;
+        swappable = word;
     }
 }
