@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
     public Transform visuals;
-    public Animator animator;
+    public PlayerAnimator animator;
 
     private Vector3 _lastPosition;
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
@@ -52,9 +52,19 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         CheckInteract();
 
-        animator.SetFloat("Speed", Mathf.Abs(_currentHorizontalSpeed));
-
-        
+        if (_currentHorizontalSpeed == 0f)
+        {
+            animator.state = AnimationState.Idle;
+        } 
+        else if (movingObject)
+        {
+            animator.state = AnimationState.Push;
+            animator.SetSpeed(_currentHorizontalSpeed);
+        } else
+        {
+            animator.state = AnimationState.Walk;
+            animator.SetSpeed(_currentHorizontalSpeed);
+        }
     }
 
     private void HandleDirections()
