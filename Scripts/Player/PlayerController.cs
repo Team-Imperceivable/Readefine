@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         // Ground
         LandingThisFrame = false;
-        var groundedCheck = RunDetection(_raysDown);
+        var groundedCheck = RunDetection(_raysDown) || RunGroundedDetectionObject(_raysDown);
         if (_colDown && !groundedCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
         else if (!_colDown && groundedCheck) {
             _coyoteUsable = true; // Only trigger when first touching
@@ -140,6 +140,10 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         bool RunDetection(RayRange range) {
             return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, _groundLayer));
+        }
+        bool RunGroundedDetectionObject(RayRange range)
+        {
+            return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, objectLayer));
         }
 
         
