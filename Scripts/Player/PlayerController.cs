@@ -48,23 +48,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         CalculateJump(); // Possibly overrides vertical
 
         HandleDirections();
+        HandleAnimations();
+
         MoveCharacter(); // Actually perform the axis movement
 
         CheckInteract();
-
-        if (_currentHorizontalSpeed == 0f)
-        {
-            animator.state = AnimationState.Idle;
-        } 
-        else if (movingObject)
-        {
-            animator.state = AnimationState.Push;
-            animator.SetSpeed(_currentHorizontalSpeed);
-        } else
-        {
-            animator.state = AnimationState.Walk;
-            animator.SetSpeed(_currentHorizontalSpeed);
-        }
     }
 
     private void HandleDirections()
@@ -77,6 +65,24 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         if (_currentHorizontalSpeed < 0 && !facingRight)
         {
             Flip();
+        }
+    }
+
+    private void HandleAnimations()
+    {
+        if (movingObject)
+        {
+            animator.state = AnimationState.Push;
+            animator.SetSpeed(_currentHorizontalSpeed);
+        }
+        else if (_currentHorizontalSpeed != 0f)
+        {
+            animator.state = AnimationState.Walk;
+            animator.SetSpeed(_currentHorizontalSpeed);
+        }
+        else
+        {
+            animator.state = AnimationState.Idle;
         }
     }
 
@@ -162,6 +168,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     //Check if colliding with a movable object
     private bool CheckMovable()
     {
+        if (!_colDown)
+            return false;
+
         if(Inputs.X > 0)
         {
             //Check Right
@@ -409,6 +418,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if(hitCollider != null)
             {
                 GameObject hitObject = hitCollider.gameObject;
+                Debug.Log(hitObject.name);
+                Debug.Log(hitObject.layer);
+                Debug.Log(objectLayer.value);
                 if(hitObject.tag.Equals("Player"))
                 {
                     //Open Spellbook
@@ -425,7 +437,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                             spellbookWindow.enabled = true;
                         }
                     }
-                } else if(hitObject.layer == objectLayer)
+                } else if(LayerMask.LayerToName(hitObject.layer).Equals("Object"))
                 {
                     //Open object definition
                     if(definitionWindow == null)
