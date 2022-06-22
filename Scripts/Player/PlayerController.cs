@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         CalculateGravity(); // Vertical movement
 
         movingObject = CheckMovable();
+        CalculateClimb();
         CalculateJump(); // Possibly overrides 
 
         HandleDirections();
@@ -77,6 +78,10 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         {
             animator.state = AnimationState.Push;
             animator.SetSpeed(_currentHorizontalSpeed);
+        } else if(climbing && !topOfLadder)
+        {
+            animator.state = AnimationState.Climb;
+            animator.SetSpeed(_currentVerticalSpeed / 4);
         }
         else if (_currentHorizontalSpeed != 0f)
         {
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             JumpDown = Input.GetButtonDown("Jump"),
             JumpUp = Input.GetButtonUp("Jump"),
             X = Input.GetAxisRaw("Horizontal"),
+            Y = Input.GetAxisRaw("Vertical"),
             Interact = Input.GetButtonDown("Fire1")
         };
         if (Inputs.JumpDown) {
@@ -129,7 +135,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] private float _detectionRayLength = 0.1f;
     [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
     [SerializeField] private float moveableCheckWidth, moveableCheckHeight;
-    [SerializeField] private Transform rightBound, leftBound;
+    [SerializeField] private Transform rightBound, leftBound, feet;
     
 
     private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
@@ -350,12 +356,16 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void CalculateJump() {
         // Jump if: grounded or within coyote threshold || sufficient jump buffer
-        if ((Inputs.JumpDown && CanUseCoyote || HasBufferedJump) && !movingObject) {
-            _currentVerticalSpeed = _jumpHeight;
-            _endedJumpEarly = false;
-            _coyoteUsable = false;
-            _timeLeftGrounded = float.MinValue;
-            JumpingThisFrame = true;
+        if (Inputs.JumpDown && !movingObject)
+        {
+            if(CanUseCoyote || HasBufferedJump || topOfLadder)
+            {
+                _currentVerticalSpeed = _jumpHeight;
+                _endedJumpEarly = false;
+                _coyoteUsable = false;
+                _timeLeftGrounded = float.MinValue;
+                JumpingThisFrame = true;
+            }
         }
         else {
             JumpingThisFrame = false;
@@ -372,6 +382,36 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         }
     }
 
+    #endregion
+
+    #region Climb
+    [Header("Climbing")]
+    [SerializeField] private float climbSpeed;
+    public bool canClimb;
+    public bool topOfLadder;
+    private bool climbing;
+
+    private void CalculateClimb()
+    {
+        if(canClimb)
+        {
+            if(!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+            {
+                _currentVerticalSpeed = climbSpeed * Inputs.Y;
+                climbing = true;
+            } else
+            {
+                climbing = false;
+            }
+        } else
+        {
+            climbing = false;
+        }
+    }
+    public bool FeetTouching(Bounds bounds)
+    {
+        return bounds.Contains(feet.position);
+    }
     #endregion
 
     #region Move
