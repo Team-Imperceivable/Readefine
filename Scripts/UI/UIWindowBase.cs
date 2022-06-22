@@ -28,16 +28,14 @@ public class UIWindowBase : MonoBehaviour, IDragHandler, IPointerClickHandler
 		// magic : add zone clamping if's here.
 	}
 
+	//TODO: Fix NullReferenceException, likely located inside the if statement
 	public void OnPointerClick(PointerEventData eventData)
     {
 		//Swap words
 		if(eventData.button == PointerEventData.InputButton.Right)
         {
-			
 			string parentKeyword = parent.SwapWord(player.spellbook.GetWord());
 			player.spellbook.SetWord(parentKeyword);
-			Debug.Log("Spellbook: " + player.spellbook.GetWord());
-			Debug.Log("Object: " + parent.swappable);
 			parent.UpdateText();
 			player.UpdateSpellbook();
         }
