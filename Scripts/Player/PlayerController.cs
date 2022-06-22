@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private bool facingRight;
     private bool movingObject;
+    private Collider2D movingCollider;
+    private Collider2D myCollider;
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
     private bool _active;
@@ -40,12 +42,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         GatherInputs();
         RunCollisionChecks();
-        movingObject = CheckMovable();
 
         CalculateWalk(); // Horizontal movement
         CalculateJumpApex(); // Affects fall speed, so calculate before gravity
         CalculateGravity(); // Vertical movement
-        CalculateJump(); // Possibly overrides vertical
+
+        movingObject = CheckMovable();
+        CalculateJump(); // Possibly overrides 
 
         HandleDirections();
         HandleAnimations();
@@ -90,6 +93,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     {
         spellbook = new DictionarySpellbook(startingWord);
         objectLayer = LayerMask.GetMask("Object");
+        myCollider = gameObject.GetComponent<Collider2D>();
     }
 
     private void Flip()
@@ -168,25 +172,22 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     //Check if colliding with a movable object
     private bool CheckMovable()
     {
-        if (!_colDown)
-            return false;
-
         if(Inputs.X > 0)
         {
             //Check Right
-            Collider2D hit = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
-            if (hit != null)
+            movingCollider = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
+            if (movingCollider != null)
             {
-                return hit.tag.Equals("Movable");
+                return movingCollider.tag.Equals("Movable");
             }
         }
         if(Inputs.X < 0)
         {
             //Check Left
-            Collider2D hit = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
-            if (hit != null)
+            movingCollider = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
+            if (movingCollider != null)
             {
-                return hit.tag.Equals("Movable");
+                return movingCollider.tag.Equals("Movable");
             }
         }
         return false;
@@ -269,6 +270,23 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         if (_currentHorizontalSpeed > 0 && _colRight || _currentHorizontalSpeed < 0 && _colLeft) {
             // Don't walk through walls
             _currentHorizontalSpeed = 0;
+        }
+        if(movingObject)
+        {
+            Collider2D[] results = new Collider2D[2];
+            ContactFilter2D filter = new ContactFilter2D
+            {
+                useLayerMask = true,
+                layerMask = _groundLayer
+            };
+            if (movingCollider.OverlapCollider(filter, results) == 2)
+            {
+                Vector3 relativePos = movingCollider.transform.position - myCollider.transform.position;
+                if (relativePos.x > 0 && _currentHorizontalSpeed > 0 || relativePos.x < 0 && _currentHorizontalSpeed < 0)
+                {
+                    _currentHorizontalSpeed = 0;
+                }
+            }
         }
 
         if(movingObject && _currentHorizontalSpeed != 0)
