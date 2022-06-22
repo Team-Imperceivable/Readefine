@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public bool LandingThisFrame { get; private set; }
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
+    public Animator animator;
 
     private Vector3 _lastPosition;
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
+
+    private bool facingRight;
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
     private bool _active;
@@ -43,11 +46,32 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         MoveCharacter(); // Actually perform the axis movement
 
         CheckInteract();
+
+        animator.SetFloat("Speed", Mathf.Abs(_currentHorizontalSpeed));
+
+        if(_currentHorizontalSpeed > 0 && facingRight)
+        {
+            Flip();
+        }
+
+        if(_currentHorizontalSpeed < 0 && !facingRight)
+        {
+            Flip();
+        }
     }
 
     private void Start()
     {
         spellbook = new DictionarySpellbook(spellbookSize);
+    }
+
+    private void Flip()
+    {
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x *= -1;
+        gameObject.transform.localScale = currentScale;
+
+        facingRight = !facingRight;
     }
 
     #region Gather Inputs
