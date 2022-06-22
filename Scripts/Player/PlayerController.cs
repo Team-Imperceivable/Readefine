@@ -418,9 +418,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if(hitCollider != null)
             {
                 GameObject hitObject = hitCollider.gameObject;
-                Debug.Log(hitObject.name);
-                Debug.Log(hitObject.layer);
-                Debug.Log(objectLayer.value);
                 if(hitObject.tag.Equals("Player"))
                 {
                     //Open Spellbook

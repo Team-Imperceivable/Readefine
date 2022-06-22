@@ -27,7 +27,7 @@ public class Definition
     //TODO: Change so it only returns an array of the keywords
     public string GetDefinition()
     {
-        return sentence.Replace(swappable, $"[{swappable}]");
+        return sentence.Replace(swappable, $"<b>{swappable}</b>");
     }
 
     public string GetKeyword()
