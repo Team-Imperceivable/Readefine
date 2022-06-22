@@ -27,7 +27,6 @@ public class Definition
     //TODO: Change so it only returns an array of the keywords
     public string GetDefinition()
     {
-        Debug.Log(sentence);
         return sentence.Replace(swappable, $"[{swappable}]");
     }
 
@@ -38,6 +37,7 @@ public class Definition
 
     public string Swap(string word)
     {
+        remakeSentence(word);
         string swappableCopy = swappable;
         swappable = word;
         return swappableCopy;
@@ -45,6 +45,12 @@ public class Definition
 
     public void SetSwappable(string word)
     {
+        remakeSentence(word);
         swappable = word;
+    }
+
+    private void remakeSentence(string replacement)
+    {
+        sentence = sentence.Replace(swappable, replacement);
     }
 }

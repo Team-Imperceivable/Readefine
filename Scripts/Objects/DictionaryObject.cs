@@ -50,6 +50,7 @@ public class DictionaryObject : MonoBehaviour
 
     public void UpdateText()
     {
+        definition.SetSwappable(swappable);
         definitionTextBox.text = definition.GetDefinition();
     }
 
