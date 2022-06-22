@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         CalculateJump(); // Possibly overrides vertical
 
         MoveCharacter(); // Actually perform the axis movement
+
+        CheckInteract();
     }
 
     private void Start()
@@ -71,6 +73,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] private int _detectorCount = 3;
     [SerializeField] private float _detectionRayLength = 0.1f;
     [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
+    [SerializeField] private float moveableCheckWidth, moveableCheckHeight;
+    [SerializeField] private Transform rightBound, leftBound;
+    
 
     private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
     private bool _colUp, _colRight, _colDown, _colLeft;
@@ -101,6 +106,25 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         bool RunDetection(RayRange range) {
             return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, _groundLayer));
         }
+
+        
+    }
+
+    //Check if colliding with a movable object
+    private bool checkMovable()
+    {
+        if(Inputs.X > 0)
+        {
+            //Check Right
+            Collider2D hit = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f);
+            return hit.tag.Equals("Movable");
+        } else if(Inputs.X < 0)
+        {
+            //Check Left
+            Collider2D hit = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f);
+            return hit.tag.Equals("Movable");
+        }
+        return false;
     }
 
     private void CalculateRayRanged() {
@@ -305,20 +329,50 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #region Interact
     [Header("Interact")]
     [SerializeField] private LayerMask interactableLayers;
-    [SerializeField] private LayerMask objectLayer;
+    [SerializeField] private string objectLayerName = "Object";
+    private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+    private Canvas definitionWindow;
+
     private void CheckInteract()
     {
         if(Inputs.Interact)
         {
-            GameObject hit = Physics2D.OverlapPoint(Input.mousePosition, interactableLayers).gameObject;
-            if(hit != null)
+
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, interactableLayers);
+            if(hitCollider != null)
             {
-                if(hit.tag.Equals("Player"))
+                GameObject hitObject = hitCollider.gameObject;
+                if(hitObject.tag.Equals("Player"))
                 {
                     //Open Spellbook
-                } else if(hit.layer == objectLayer)
+                    if (spellbookWindow != null)
+                        spellbookWindow.enabled = !spellbookWindow.enabled;
+                    else
+                        Debug.Log("Returned Null");
+                } else if(LayerMask.LayerToName(hitObject.layer).Equals(objectLayerName))
                 {
                     //Open object definition
+                    if(definitionWindow == null)
+                    {
+                        //If no window stored, store it and enable it
+                        definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                        definitionWindow.enabled = true;
+                    }
+                    else
+                    {
+                        //Disable stored window and open new one
+                        Canvas newWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                        if(newWindow != definitionWindow)
+                        {
+                            definitionWindow.enabled = false;
+                            newWindow.enabled = true;
+                            definitionWindow = newWindow;
+                        } else
+                        {
+                            definitionWindow.enabled = !definitionWindow.enabled;
+                        }
+                                            }
                 }
             }
         }

@@ -11,7 +11,13 @@ public class UIWindowBase : MonoBehaviour, IDragHandler
 	void Start () {
 		m_transform = GetComponent<RectTransform>();
 	}
-	
+
+	/// <summary>
+	/// Drags the window
+	/// </summary>
+	/// <param name="eventData">
+	/// Mouse event data
+	/// </param>
 	public void OnDrag(PointerEventData eventData)
 	{
 		m_transform.position += new Vector3(eventData.delta.x, eventData.delta.y);
