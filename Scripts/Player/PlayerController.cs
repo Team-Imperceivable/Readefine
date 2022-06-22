@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public bool LandingThisFrame { get; private set; }
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
+    public Transform visuals;
     public Animator animator;
 
     private Vector3 _lastPosition;
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
 
     private bool facingRight;
+    private bool movingObject;
 
     // This is horrible, but for some reason colliders are not fully established when update starts...
     private bool _active;
@@ -38,24 +40,31 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         GatherInputs();
         RunCollisionChecks();
+        movingObject = CheckMovable();
 
         CalculateWalk(); // Horizontal movement
         CalculateJumpApex(); // Affects fall speed, so calculate before gravity
         CalculateGravity(); // Vertical movement
         CalculateJump(); // Possibly overrides vertical
 
+        HandleDirections();
         MoveCharacter(); // Actually perform the axis movement
 
         CheckInteract();
 
         animator.SetFloat("Speed", Mathf.Abs(_currentHorizontalSpeed));
 
-        if(_currentHorizontalSpeed > 0 && facingRight)
+        
+    }
+
+    private void HandleDirections()
+    {
+        if (_currentHorizontalSpeed > 0 && facingRight)
         {
             Flip();
         }
 
-        if(_currentHorizontalSpeed < 0 && !facingRight)
+        if (_currentHorizontalSpeed < 0 && !facingRight)
         {
             Flip();
         }
@@ -64,13 +73,14 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private void Start()
     {
         spellbook = new DictionarySpellbook(startingWord);
+        objectLayer = LayerMask.GetMask("Object");
     }
 
     private void Flip()
     {
-        Vector3 currentScale = gameObject.transform.localScale;
+        Vector3 currentScale = visuals.localScale;
         currentScale.x *= -1;
-        gameObject.transform.localScale = currentScale;
+        visuals.localScale = currentScale;
 
         facingRight = !facingRight;
     }
@@ -136,18 +146,25 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     }
 
     //Check if colliding with a movable object
-    private bool checkMovable()
+    private bool CheckMovable()
     {
         if(Inputs.X > 0)
         {
             //Check Right
-            Collider2D hit = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f);
-            return hit.tag.Equals("Movable");
-        } else if(Inputs.X < 0)
+            Collider2D hit = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
+            if (hit != null)
+            {
+                return hit.tag.Equals("Movable");
+            }
+        }
+        if(Inputs.X < 0)
         {
             //Check Left
-            Collider2D hit = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f);
-            return hit.tag.Equals("Movable");
+            Collider2D hit = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
+            if (hit != null)
+            {
+                return hit.tag.Equals("Movable");
+            }
         }
         return false;
     }
@@ -174,6 +191,10 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         // Bounds
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position + _characterBounds.center, _characterBounds.size);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
+        Gizmos.DrawWireCube(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
 
         // Rays
         if (!Application.isPlaying) {
@@ -203,6 +224,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] private float _moveClamp = 13;
     [SerializeField] private float _deAcceleration = 60f;
     [SerializeField] private float _apexBonus = 2;
+    [SerializeField] private float _pushSpeedModifier;
 
     private void CalculateWalk() {
         if (Inputs.X != 0) {
@@ -224,6 +246,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         if (_currentHorizontalSpeed > 0 && _colRight || _currentHorizontalSpeed < 0 && _colLeft) {
             // Don't walk through walls
             _currentHorizontalSpeed = 0;
+        }
+
+        if(movingObject && _currentHorizontalSpeed != 0)
+        {
+            _currentHorizontalSpeed *= _pushSpeedModifier;
         }
     }
 
@@ -282,7 +309,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void CalculateJump() {
         // Jump if: grounded or within coyote threshold || sufficient jump buffer
-        if (Inputs.JumpDown && CanUseCoyote || HasBufferedJump) {
+        if ((Inputs.JumpDown && CanUseCoyote || HasBufferedJump) && !movingObject) {
             _currentVerticalSpeed = _jumpHeight;
             _endedJumpEarly = false;
             _coyoteUsable = false;
@@ -354,7 +381,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #region Interact
     [Header("Interact")]
     [SerializeField] private LayerMask interactableLayers;
-    [SerializeField] private string objectLayerName = "Object";
+    private LayerMask objectLayer;
     private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
     private Canvas definitionWindow;
 
@@ -384,7 +411,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                             spellbookWindow.enabled = true;
                         }
                     }
-                } else if(LayerMask.LayerToName(hitObject.layer).Equals(objectLayerName))
+                } else if(hitObject.layer == objectLayer)
                 {
                     //Open object definition
                     if(definitionWindow == null)
