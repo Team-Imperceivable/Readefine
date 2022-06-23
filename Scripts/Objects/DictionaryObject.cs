@@ -10,20 +10,40 @@ public class DictionaryObject : MonoBehaviour
     
     public string sentence;
     public Definition definition;
+    public ActiveKeyword keyword = ActiveKeyword.None;
+    private Collider2D myCollider;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         //Creates the definition, has to be inside a method so it's here
         definition = new Definition(sentence, swappable);
-
+        myCollider = gameObject.GetComponent<Collider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         UpdateText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Probably will use this later so just keeping it here for now
+        AlterProperties();
+        switch (keyword)
+        {
+            case ActiveKeyword.None:
+                break;
+            case ActiveKeyword.Deadly:
+                Collider2D playerCollider = GetPlayerInContactCollider();
+                if (playerCollider != null)
+                {
+                    playerCollider.gameObject.GetComponent<PlayerController>().Kill();
+                }
+                break;
+            case ActiveKeyword.Moveable:
+                gameObject.tag = "Moveable";
+                rb.constraints = RigidbodyConstraints2D.None;
+                break;
+        }
     }
 
     #region PROPERTIES
@@ -77,9 +97,65 @@ public class DictionaryObject : MonoBehaviour
     {
         if(Solved())
         {
-            //Do something based off properties
 
+            //Template for setting the keyword
+            //if (swappable.Equals(Keyword Name))
+            //    keyword = ActiveKeyword.Keyword Name
+            if (swappable.Equals("deadly"))
+                keyword = ActiveKeyword.Deadly;
+            if (swappable.Equals("moveable"))
+                keyword = ActiveKeyword.Moveable;
+            else
+                rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        } else
+        {
+            gameObject.tag = "Untagged";
+            keyword = ActiveKeyword.None;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
     }
     #endregion
+
+    private bool PlayerInContact()
+    {
+        List<Collider2D> contacts = new List<Collider2D>();
+
+        myCollider.GetContacts(contacts);
+
+        foreach(Collider2D collider in contacts)
+        {
+            if(collider.tag.Equals("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private Collider2D GetPlayerInContactCollider()
+    {
+        List<Collider2D> contacts = new List<Collider2D>();
+
+        myCollider.GetContacts(contacts);
+
+        foreach (Collider2D collider in contacts)
+        {
+            if (collider.tag.Equals("Player"))
+            {
+                return collider;
+            }
+        }
+        return null;
+    }
+}
+
+public enum ActiveKeyword
+{
+    None,
+    Deadly,
+    Moveable,
+    Floating,
+    Swimmable,
+    Controllable,
+    Passable,
+    Climbable
 }

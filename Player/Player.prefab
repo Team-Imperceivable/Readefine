@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 7101784322742594663}
   - component: {fileID: 7101784322742594661}
   - component: {fileID: 7101784322742594656}
+  - component: {fileID: 5353958712468905613}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -392,7 +393,7 @@ MonoBehaviour:
     m_Extent: {x: 0.45, y: 1.25, z: 0}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   _detectorCount: 3
   _detectionRayLength: 0.05
   _rayBuffer: 0.1
@@ -400,8 +401,8 @@ MonoBehaviour:
   moveableCheckHeight: 1.75
   rightBound: {fileID: 8982201842804006565}
   leftBound: {fileID: 1400790780730847926}
-  feet: {fileID: 0}
-  _acceleration: 60
+  feet: {fileID: 3065252721006728880}
+  _acceleration: 90
   _moveClamp: 13
   _deAcceleration: 60
   _apexBonus: 2
@@ -409,7 +410,7 @@ MonoBehaviour:
   _fallClamp: -40
   _minFallSpeed: 80
   _maxFallSpeed: 120
-  _jumpHeight: 25
+  _jumpHeight: 30
   _jumpApexThreshold: 10
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
@@ -422,6 +423,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   startingWord: starting word
+  respawnScript: {fileID: 5353958712468905613}
 --- !u!61 &7101784322742594656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -448,6 +450,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.325}
   m_EdgeRadius: 0
+--- !u!114 &5353958712468905613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7101784322742594660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f640175f92a2a41a9d8025ba762aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7101784322777477472
 GameObject:
   m_ObjectHideFlags: 0

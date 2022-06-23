@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         CalculateJumpApex(); // Affects fall speed, so calculate before gravity
         CalculateGravity(); // Vertical movement
 
-        movingObject = CheckMovable();
+        movingObject = CheckMoveable();
         CalculateClimb();
         CalculateJump(); // Possibly overrides 
 
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         // Ground
         LandingThisFrame = false;
-        var groundedCheck = RunDetection(_raysDown) || RunGroundedDetectionObject(_raysDown);
+        var groundedCheck = RunDetection(_raysDown, _groundLayer) || RunDetection(_raysDown, objectLayer);
         if (_colDown && !groundedCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
         else if (!_colDown && groundedCheck) {
             _coyoteUsable = true; // Only trigger when first touching
@@ -160,23 +160,17 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         _colDown = groundedCheck;
 
         // The rest
-        _colUp = RunDetection(_raysUp);
-        _colLeft = RunDetection(_raysLeft);
-        _colRight = RunDetection(_raysRight);
-
-        bool RunDetection(RayRange range) {
-            return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, _groundLayer));
-        }
-        bool RunGroundedDetectionObject(RayRange range)
-        {
-            return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, objectLayer));
-        }
-
+        _colUp = RunDetection(_raysUp, _groundLayer);
+        _colLeft = RunDetection(_raysLeft, _groundLayer);
+        _colRight = RunDetection(_raysRight, _groundLayer);
         
+        bool RunDetection(RayRange range, LayerMask checkLayer) {
+            return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, checkLayer));
+        }
     }
 
-    //Check if colliding with a movable object
-    private bool CheckMovable()
+    //Check if colliding with a Moveable object
+    private bool CheckMoveable()
     {
         if(Inputs.X > 0)
         {
@@ -184,7 +178,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             movingCollider = Physics2D.OverlapBox(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
             if (movingCollider != null)
             {
-                return movingCollider.tag.Equals("Movable");
+                return movingCollider.tag.Equals("Moveable");
             }
         }
         if(Inputs.X < 0)
@@ -193,7 +187,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             movingCollider = Physics2D.OverlapBox(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight), 0f, objectLayer);
             if (movingCollider != null)
             {
-                return movingCollider.tag.Equals("Movable");
+                return movingCollider.tag.Equals("Moveable");
             }
         }
         return false;
@@ -277,6 +271,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             // Don't walk through walls
             _currentHorizontalSpeed = 0;
         }
+
         if(movingObject)
         {
             Collider2D[] results = new Collider2D[2];
@@ -533,6 +528,16 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     {
         Text spellbookText = gameObject.GetComponentInChildren(typeof(Text)) as Text;
         spellbookText.text = spellbook.GetWord();
+    }
+    #endregion
+
+    #region Respawn
+    [Header("Respawn")]
+    [SerializeField] private Respawn respawnScript;
+
+    public void Kill()
+    {
+        respawnScript.Reset();
     }
     #endregion
 }

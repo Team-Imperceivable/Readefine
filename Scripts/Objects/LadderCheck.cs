@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Remove this and add it into dictionary object
 public class LadderCheck : MonoBehaviour
 {
     [Header("Dimensions")]
