@@ -258,13 +258,14 @@ MonoBehaviour:
   solutions:
   - moveable
   - floating
+  - passable
   definitionTextBox: {fileID: 595905790981689247}
   floatSpeed: 5
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 136
   passingOpacity: 0.5
-  renderer: {fileID: 0}
+  spriteRenderer: {fileID: 1586403547831202262}
   _characterBounds:
     m_Center: {x: 0, y: 0.05, z: 0}
     m_Extent: {x: 1.25, y: 1.2, z: 0}
@@ -298,6 +299,8 @@ MonoBehaviour:
   climbSpeed: 10
   canClimb: 0
   topOfLadder: 0
+  swimmingVerticalModifier: 0
+  swimming: 0
   _freeColliderIterations: 10
 --- !u!50 &8019027968779201649
 Rigidbody2D:

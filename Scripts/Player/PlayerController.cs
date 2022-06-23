@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         movingObject = CheckMoveable();
         CalculateClimb();
         CalculateJump(); // Possibly overrides 
+        CalculateSwimming();
 
         HandleDirections();
         HandleAnimations();
@@ -78,7 +79,12 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         {
             animator.state = AnimationState.Push;
             animator.SetSpeed(_currentHorizontalSpeed);
-        } else if(climbing && !topOfLadder)
+        } else if(swimming)
+        {
+            animator.state = AnimationState.Swim;
+            animator.SetSpeed(_currentVerticalSpeed / 4);
+        }
+        else if(climbing && !topOfLadder)
         {
             animator.state = AnimationState.Climb;
             animator.SetSpeed(_currentVerticalSpeed / 4);
@@ -99,6 +105,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         spellbook = new DictionarySpellbook(startingWord);
         objectLayer = LayerMask.GetMask("Object");
         myCollider = gameObject.GetComponent<Collider2D>();
+        _defaultMinFallSpeed = _minFallSpeed;
     }
 
     private void Flip()
@@ -303,6 +310,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [Header("GRAVITY")] [SerializeField] private float _fallClamp = -40f;
     [SerializeField] private float _minFallSpeed = 80f;
     [SerializeField] private float _maxFallSpeed = 120f;
+    private float _defaultMinFallSpeed;
     private float _fallSpeed;
 
     private void CalculateGravity() {
@@ -311,6 +319,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
         }
         else {
+            if (swimming)
+                _minFallSpeed = 0f;
+            else
+                _minFallSpeed = _defaultMinFallSpeed;
+
             // Add downward force while ascending if we ended the jump early
             var fallSpeed = _endedJumpEarly && _currentVerticalSpeed > 0 ? _fallSpeed * _jumpEndEarlyGravityModifier : _fallSpeed;
 
@@ -318,7 +331,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             _currentVerticalSpeed -= fallSpeed * Time.deltaTime;
 
             // Clamp
-            if (_currentVerticalSpeed < _fallClamp) _currentVerticalSpeed = _fallClamp;
+            
+            if (_currentVerticalSpeed < _fallClamp ) _currentVerticalSpeed = _fallClamp;
         }
     }
 
@@ -353,7 +367,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         // Jump if: grounded or within coyote threshold || sufficient jump buffer
         if (Inputs.JumpDown && !movingObject)
         {
-            if(CanUseCoyote || HasBufferedJump || topOfLadder)
+            if(CanUseCoyote || HasBufferedJump || topOfLadder || swimming)
             {
                 _currentVerticalSpeed = _jumpHeight;
                 _endedJumpEarly = false;
@@ -380,7 +394,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #endregion
 
     #region Climb
-    [Header("Climbing")]
+    [Header("CLIMBING")]
     [SerializeField] private float climbSpeed;
     public bool canClimb;
     public bool topOfLadder;
@@ -406,6 +420,28 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public bool FeetTouching(Bounds bounds)
     {
         return bounds.Contains(feet.position);
+    }
+    #endregion
+
+    #region Swimming
+    [Header("SWIMMING")]
+    [SerializeField] private float swimmingVerticalModifier;
+    [SerializeField] private LayerMask waterLayer;
+    public bool swimming;
+    private void CalculateSwimming()
+    {
+        if (swimming)
+        {
+            
+            if(Physics2D.OverlapPoint(transform.position, waterLayer) != null)
+            {
+                _currentVerticalSpeed *= swimmingVerticalModifier;
+            } else
+            {
+                swimming = false;
+            }
+            
+        }
     }
     #endregion
 
@@ -455,7 +491,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #endregion
 
     #region Interact
-    [Header("Interact")]
+    [Header("INTERACT")]
     [SerializeField] private LayerMask interactableLayers;
     private LayerMask objectLayer;
     private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
@@ -532,7 +568,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #endregion
 
     #region Respawn
-    [Header("Respawn")]
+    [Header("RESPAWN")]
     [SerializeField] private Respawn respawnScript;
 
     public void Kill()

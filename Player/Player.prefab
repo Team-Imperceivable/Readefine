@@ -396,7 +396,7 @@ MonoBehaviour:
     m_Bits: 192
   platformLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   _detectorCount: 3
   _detectionRayLength: 0.05
   _rayBuffer: 0.1
@@ -421,11 +421,16 @@ MonoBehaviour:
   climbSpeed: 10
   canClimb: 0
   topOfLadder: 0
+  swimmingVerticalModifier: 0.98
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  swimming: 0
   _freeColliderIterations: 10
   interactableLayers:
     serializedVersion: 2
     m_Bits: 136
-  startingWord: starting word
+  startingWord: passable
   respawnScript: {fileID: 5353958712468905613}
 --- !u!61 &7101784322742594656
 BoxCollider2D:

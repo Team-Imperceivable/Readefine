@@ -58,6 +58,7 @@ public class DictionaryObject : MonoBehaviour
                 }
                 break;
             case ActiveKeyword.Passable:
+                gameObject.layer = LayerMask.NameToLayer("Passable");
                 ContactFilter2D filter = new ContactFilter2D
                 {
                     useLayerMask = true,
@@ -66,14 +67,37 @@ public class DictionaryObject : MonoBehaviour
                 Collider2D[] contacts = new Collider2D[2];
                 if(Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, filter, contacts) >= 1)
                 {
-                    renderer.color = new Color(1.0f, 1.0f, 1.0f, passingOpacity);
+                    spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, passingOpacity);
                 } else
                 {
-                    renderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+                    spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 }
+                break;
+            case ActiveKeyword.Swimmable:
                 gameObject.layer = LayerMask.NameToLayer("Passable");
+                ContactFilter2D swimmingFilter = new ContactFilter2D
+                {
+                    useLayerMask = true,
+                    layerMask = interactableLayers
+                };
+                List<Collider2D> swimmingContacts = new List<Collider2D>();
+                Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, swimmingFilter, swimmingContacts);
+                foreach(Collider2D collider in swimmingContacts)
+                {
+                    GameObject colliderObject = collider.gameObject;
+                    if(collider.gameObject.tag.Equals("Player"))
+                    {
+                        PlayerController controller = colliderObject.GetComponent<PlayerController>();
+                        controller.swimming = true;
+                    } else
+                    {
+                        DictionaryObject dictObj = colliderObject.GetComponent<DictionaryObject>();
+                        dictObj.swimming = true;
+                    }
+                }
                 break;
             case ActiveKeyword.Controllable:
+                rb.gravityScale = 0f;
                 gameObject.tag = "Controllable";
                 rb.constraints = RigidbodyConstraints2D.None;
                 FrameInput playerInputs = new FrameInput
@@ -93,6 +117,7 @@ public class DictionaryObject : MonoBehaviour
                 movingObject = CheckMoveable(playerInputs);
                 CalculateClimb(playerInputs);
                 CalculateJump(playerInputs);
+                CalculateSwimming();
 
                 MoveCharacter();
                 Debug.Log(RawMovement);
@@ -167,6 +192,8 @@ public class DictionaryObject : MonoBehaviour
                 rb.gravityScale = normalGravity;
             if (swappable.Equals("passable"))
                 keyword = ActiveKeyword.Passable;
+            if(swappable.Equals("swimmable"))
+                keyword = ActiveKeyword.Swimmable;
             else
                 gameObject.layer = normalLayer;
         } else
@@ -228,7 +255,7 @@ public class DictionaryObject : MonoBehaviour
 
     [Header("Passable")]
     [SerializeField] private float passingOpacity;
-    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     #region Controllable Movement
 
     public bool JumpingThisFrame { get; private set; }
@@ -417,7 +444,7 @@ public class DictionaryObject : MonoBehaviour
         // Jump if: grounded or within coyote threshold || sufficient jump buffer
         if (Inputs.JumpDown && !movingObject)
         {
-            if (CanUseCoyote || HasBufferedJump || topOfLadder)
+            if (CanUseCoyote || HasBufferedJump || topOfLadder || swimming)
             {
                 _currentVerticalSpeed = _jumpHeight;
                 _endedJumpEarly = false;
@@ -495,6 +522,14 @@ public class DictionaryObject : MonoBehaviour
     public bool FeetTouching(Bounds bounds)
     {
         return bounds.Contains(feet.position);
+    }
+    [Header("SWIMMING")]
+    [SerializeField] private float swimmingVerticalModifier;
+    public bool swimming;
+    private void CalculateSwimming()
+    {
+        if (swimming)
+            _currentVerticalSpeed *= swimmingVerticalModifier;
     }
 
     [Header("MOVE")]
