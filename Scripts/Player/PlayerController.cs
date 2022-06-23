@@ -533,11 +533,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     #region Respawn
     [Header("Respawn")]
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] private Respawn respawnScript;
 
     public void Kill()
     {
-        transform.position = respawnPoint.position;
+        respawnScript.Reset();
     }
     #endregion
 }
