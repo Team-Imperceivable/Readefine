@@ -263,10 +263,8 @@ MonoBehaviour:
   interactableLayers:
     serializedVersion: 2
     m_Bits: 0
-  passableLayer:
-    serializedVersion: 2
-    m_Bits: 512
   passingOpacity: 0.5
+  renderer: {fileID: 0}
   _characterBounds:
     m_Center: {x: 0, y: 0.05, z: 0}
     m_Extent: {x: 1.25, y: 1.2, z: 0}
@@ -706,7 +704,7 @@ GameObject:
   - component: {fileID: 9002879323582884661}
   - component: {fileID: 1586403547831202262}
   m_Layer: 7
-  m_Name: Visuals
+  m_Name: Object Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

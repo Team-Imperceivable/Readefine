@@ -64,9 +64,12 @@ public class DictionaryObject : MonoBehaviour
                     layerMask = interactableLayers
                 };
                 Collider2D[] contacts = new Collider2D[2];
-                if(Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, filter, contacts) > 1)
+                if(Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, filter, contacts) >= 1)
                 {
-                    gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, passingOpacity);
+                    renderer.color = new Color(1.0f, 1.0f, 1.0f, passingOpacity);
+                } else
+                {
+                    renderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 }
                 gameObject.layer = LayerMask.NameToLayer("Passable");
                 break;
@@ -225,7 +228,7 @@ public class DictionaryObject : MonoBehaviour
 
     [Header("Passable")]
     [SerializeField] private float passingOpacity;
-
+    [SerializeField] private SpriteRenderer renderer;
     #region Controllable Movement
 
     public bool JumpingThisFrame { get; private set; }

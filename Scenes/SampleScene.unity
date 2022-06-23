@@ -190,6 +190,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &250027950 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1586403547831202262, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+  m_PrefabInstance: {fileID: 1894177580}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1151,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1586403547831202262, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1962945018451713689, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1154,6 +1163,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 7101784320859691661}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: renderer
+      value: 
+      objectReference: {fileID: 250027950}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: floatModifier
       value: 0.25
@@ -1225,6 +1238,10 @@ PrefabInstance:
     - target: {fileID: 6929060752300316211, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8147409798665510917, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: m_Name
+      value: Object Visuals
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2747840278009239610, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}

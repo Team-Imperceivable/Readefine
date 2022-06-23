@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5332832265357987041}
   - component: {fileID: 8663092962186339785}
   m_Layer: 3
-  m_Name: Visuals
+  m_Name: Player Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,6 +394,9 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 192
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _detectorCount: 3
   _detectionRayLength: 0.05
   _rayBuffer: 0.1
