@@ -401,7 +401,7 @@ MonoBehaviour:
   rightBound: {fileID: 8982201842804006565}
   leftBound: {fileID: 1400790780730847926}
   feet: {fileID: 0}
-  _acceleration: 90
+  _acceleration: 60
   _moveClamp: 13
   _deAcceleration: 60
   _apexBonus: 2
@@ -409,7 +409,7 @@ MonoBehaviour:
   _fallClamp: -40
   _minFallSpeed: 80
   _maxFallSpeed: 120
-  _jumpHeight: 30
+  _jumpHeight: 25
   _jumpApexThreshold: 10
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
