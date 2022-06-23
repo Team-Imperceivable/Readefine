@@ -10,6 +10,7 @@ public class DictionaryObject : MonoBehaviour
     
     public string sentence;
     public Definition definition;
+    public ActiveKeyword keyword = ActiveKeyword.None;
     private Collider2D myCollider;
 
     // Start is called before the first frame update
@@ -24,7 +25,19 @@ public class DictionaryObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //
+        AlterProperties();
+        switch (keyword)
+        {
+            case ActiveKeyword.None:
+                break;
+            case ActiveKeyword.Deadly:
+                Collider2D playerCollider = GetPlayerInContactCollider();
+                if (playerCollider != null)
+                {
+                    playerCollider.gameObject.GetComponent<PlayerController>().Kill();
+                }
+                break;
+        }
     }
 
     #region PROPERTIES
@@ -78,8 +91,12 @@ public class DictionaryObject : MonoBehaviour
     {
         if(Solved())
         {
-            //Do something based off properties
 
+            //Template for setting the keyword
+            //if (swappable.Equals(Keyword Name))
+            //    keyword = ActiveKeyword.Keyword Name
+            if (swappable.Equals("deadly"))
+                keyword = ActiveKeyword.Deadly;
         }
     }
     #endregion
