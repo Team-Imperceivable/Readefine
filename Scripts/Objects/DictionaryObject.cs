@@ -9,6 +9,7 @@ public class DictionaryObject : MonoBehaviour
     [Header("Initialization Variables")]
     [SerializeField] public string swappable;
     
+
     public string sentence;
     public Definition definition;
     public ActiveKeyword keyword = ActiveKeyword.None;
@@ -43,6 +44,14 @@ public class DictionaryObject : MonoBehaviour
             case ActiveKeyword.Moveable:
                 gameObject.tag = "Moveable";
                 rb.constraints = RigidbodyConstraints2D.None;
+                break;
+            case ActiveKeyword.Floating:
+                rb.gravityScale = 0f;
+                Vector3 floatMove = new Vector3(0f, floatSpeed * Time.deltaTime, 0f);
+                foreach(Collider2D collider in GetOnTop())
+                {
+                    collider.transform.position += floatMove;
+                }
                 break;
             case ActiveKeyword.Controllable:
                 gameObject.tag = "Controllable";
@@ -132,6 +141,8 @@ public class DictionaryObject : MonoBehaviour
                 keyword = ActiveKeyword.Moveable;
             if (swappable.Equals("controllable"))
                 keyword = ActiveKeyword.Controllable;
+            if (swappable.Equals("floating"))
+                keyword = ActiveKeyword.Floating;
         } else
         {
             gameObject.tag = "Untagged";
@@ -172,6 +183,21 @@ public class DictionaryObject : MonoBehaviour
         return null;
     }
 
+    [Header("Floating")]
+    [SerializeField] private float floatSpeed;
+    [SerializeField] private LayerMask liftableLayers;
+    private List<Collider2D> GetOnTop()
+    {
+        List<Collider2D> contacts = new List<Collider2D>();
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            useLayerMask = true,
+            layerMask = liftableLayers
+        };
+        Physics2D.OverlapBox(head.position, new Vector2(onTopCheckWidth, onTopCheckHeight), 0f, filter, contacts);
+        return contacts;
+    }
+
     #region Controllable Movement
 
     public bool JumpingThisFrame { get; private set; }
@@ -190,7 +216,8 @@ public class DictionaryObject : MonoBehaviour
     [SerializeField] private float _detectionRayLength = 0.1f;
     [SerializeField][Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
     [SerializeField] private float moveableCheckWidth, moveableCheckHeight;
-    [SerializeField] private Transform rightBound, leftBound, feet;
+    [SerializeField] private float onTopCheckWidth, onTopCheckHeight;
+    [SerializeField] private Transform rightBound, leftBound, feet, head;
 
 
     private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
@@ -495,6 +522,7 @@ public class DictionaryObject : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
         Gizmos.DrawWireCube(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
+        Gizmos.DrawWireCube(head.position, new Vector2(onTopCheckWidth, onTopCheckHeight));
 
         // Rays
         if (!Application.isPlaying)
