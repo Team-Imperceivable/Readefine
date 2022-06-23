@@ -12,6 +12,7 @@ public class DictionaryObject : MonoBehaviour
     public Definition definition;
     public ActiveKeyword keyword = ActiveKeyword.None;
     private Collider2D myCollider;
+    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class DictionaryObject : MonoBehaviour
         //Creates the definition, has to be inside a method so it's here
         definition = new Definition(sentence, swappable);
         myCollider = gameObject.GetComponent<Collider2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
         UpdateText();
     }
 
@@ -36,6 +38,10 @@ public class DictionaryObject : MonoBehaviour
                 {
                     playerCollider.gameObject.GetComponent<PlayerController>().Kill();
                 }
+                break;
+            case ActiveKeyword.Moveable:
+                gameObject.tag = "Moveable";
+                rb.constraints = RigidbodyConstraints2D.None;
                 break;
         }
     }
@@ -97,6 +103,15 @@ public class DictionaryObject : MonoBehaviour
             //    keyword = ActiveKeyword.Keyword Name
             if (swappable.Equals("deadly"))
                 keyword = ActiveKeyword.Deadly;
+            if (swappable.Equals("moveable"))
+                keyword = ActiveKeyword.Moveable;
+            else
+                rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        } else
+        {
+            gameObject.tag = "Untagged";
+            keyword = ActiveKeyword.None;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
     }
     #endregion
