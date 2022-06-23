@@ -766,7 +766,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -9}
+  m_Offset: {x: 0, y: -11}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -777,7 +777,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 40, y: 3}
+  m_Size: {x: 40, y: 5}
   m_EdgeRadius: 0
 --- !u!156049354 &1304396764
 Grid:
@@ -819,7 +819,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 14, y: -3}
+  m_Offset: {x: 14, y: -4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1345,6 +1345,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.225
       objectReference: {fileID: 0}
+    - target: {fileID: 7767307557073115462, guid: 2dd257df3c15ef646bd19d42d3859785, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7101784320859691661}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dd257df3c15ef646bd19d42d3859785, type: 3}
 --- !u!1001 &5822436143667812368
@@ -1425,11 +1429,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6584398170778416303, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.27
+      value: 7.43
       objectReference: {fileID: 0}
     - target: {fileID: 6584398170778416303, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.76
+      value: -6.67
       objectReference: {fileID: 0}
     - target: {fileID: 6584398170778416303, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1576,6 +1580,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3186129767861866846, guid: a691775cca07cf34ca45cb74b98a6cad, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7101784320859691661}
     - target: {fileID: 7922362554845211099, guid: a691775cca07cf34ca45cb74b98a6cad, type: 3}
       propertyPath: m_Name
       value: Water Prefab

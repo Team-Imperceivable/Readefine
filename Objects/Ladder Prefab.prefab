@@ -374,7 +374,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   passingOpacity: 0.5
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 2326525296758475707}
+  onTopBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   _characterBounds:
     m_Center: {x: 0, y: 0.05, z: 0}
     m_Extent: {x: 1.25, y: 3.5, z: 0}
@@ -409,6 +412,9 @@ MonoBehaviour:
   climbableLayer:
     serializedVersion: 2
     m_Bits: 512
+  topOfLadderBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
   canClimb: 0
   topOfLadder: 0
   swimmingVerticalModifier: 0

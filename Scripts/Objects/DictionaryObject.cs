@@ -49,7 +49,7 @@ public class DictionaryObject : MonoBehaviour
                 break;
             case ActiveKeyword.Moveable:
                 gameObject.tag = "Moveable";
-                rb.constraints = RigidbodyConstraints2D.None;
+                rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 break;
             case ActiveKeyword.Floating:
                 rb.gravityScale = 0f;
@@ -210,7 +210,9 @@ public class DictionaryObject : MonoBehaviour
                 rb.gravityScale = normalGravity;
             if (swappable.Equals("passable"))
                 keyword = ActiveKeyword.Passable;
-            if(swappable.Equals("swimmable"))
+            else
+                spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            if (swappable.Equals("swimmable"))
                 keyword = ActiveKeyword.Swimmable;
             else if (swappable.Equals("climbable"))
                 keyword = ActiveKeyword.Climbable;
@@ -218,6 +220,7 @@ public class DictionaryObject : MonoBehaviour
                 gameObject.layer = normalLayer;
         } else
         {
+            spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
             gameObject.tag = "Untagged";
             keyword = ActiveKeyword.None;
             gameObject.layer = normalLayer;

@@ -423,7 +423,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   canClimb: 0
-  topOfLadder: 0
   swimmingVerticalModifier: 0.98
   waterLayer:
     serializedVersion: 2
@@ -432,7 +431,7 @@ MonoBehaviour:
   _freeColliderIterations: 10
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 648
   startingWord: passable
   respawnScript: {fileID: 5353958712468905613}
 --- !u!61 &7101784322742594656

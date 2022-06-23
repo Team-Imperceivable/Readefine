@@ -55,7 +55,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         HandleDirections();
         HandleAnimations();
 
+
         MoveCharacter(); // Actually perform the axis movement
+        //StopClippable();
 
         CheckInteract();
     }
@@ -167,12 +169,27 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         _colDown = groundedCheck;
 
         // The rest
-        _colUp = RunDetection(_raysUp, _groundLayer);
+        _colUp = RunDetection(_raysUp, _groundLayer) ;
         _colLeft = RunDetection(_raysLeft, _groundLayer);
         _colRight = RunDetection(_raysRight, _groundLayer);
         
         bool RunDetection(RayRange range, LayerMask checkLayer) {
             return EvaluateRayPositions(range).Any(point => Physics2D.Raycast(point, range.Dir, _detectionRayLength, checkLayer));
+        }
+    }
+
+    private void StopClippable()
+    {
+        ContactFilter2D groundFilter = new ContactFilter2D
+        {
+            useLayerMask = true,
+            layerMask = LayerMask.NameToLayer("Ground")
+        };
+        Collider2D[] results = new Collider2D[2];
+        if(myCollider.OverlapCollider(groundFilter, results) > 1)
+        {
+            Debug.Log(results[0].gameObject.name);
+            transform.position = _lastPosition;
         }
     }
 
@@ -408,15 +425,23 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if (hitCollider != null)
             {
                 DictionaryObject dictObj = hitCollider.gameObject.GetComponent<DictionaryObject>();
-                topOfLadder = FeetTouching(dictObj.onTopBounds);
-                if (!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+                if (dictObj.swappable.Equals("climbable"))
                 {
-                    _currentVerticalSpeed = climbSpeed * Inputs.Y;
-                    climbing = true;
+                    topOfLadder = FeetTouching(dictObj.onTopBounds);
+                    if (!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+                    {
+                        _currentVerticalSpeed = climbSpeed * Inputs.Y;
+                        climbing = true;
+                    }
+                    else
+                    {
+                        climbing = false;
+                    }
                 }
                 else
                 {
                     climbing = false;
+                    topOfLadder = false;
                 }
             }
             else
@@ -532,7 +557,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                             spellbookWindow.enabled = true;
                         }
                     }
-                } else if(LayerMask.LayerToName(hitObject.layer).Equals("Object"))
+                } else if(LayerMask.LayerToName(hitObject.layer).Equals("Object") || LayerMask.LayerToName(hitObject.layer).Equals("Passable"))
                 {
                     //Open object definition
                     if(definitionWindow == null)
