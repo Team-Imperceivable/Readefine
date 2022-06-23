@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #region Collisions
 
     [Header("COLLISION")] [SerializeField] private Bounds _characterBounds;
-    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _groundLayer, platformLayer;
     [SerializeField] private int _detectorCount = 3;
     [SerializeField] private float _detectionRayLength = 0.1f;
     [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         // Ground
         LandingThisFrame = false;
-        var groundedCheck = RunDetection(_raysDown, _groundLayer) || RunDetection(_raysDown, objectLayer);
+        var groundedCheck = RunDetection(_raysDown, _groundLayer) || RunDetection(_raysDown, platformLayer);
         if (_colDown && !groundedCheck) _timeLeftGrounded = Time.time; // Only trigger when first leaving
         else if (!_colDown && groundedCheck) {
             _coyoteUsable = true; // Only trigger when first touching
@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] private float _moveClamp = 13;
     [SerializeField] private float _deAcceleration = 60f;
     [SerializeField] private float _apexBonus = 2;
-    [SerializeField] private float _pushSpeedModifier;
+    [SerializeField] private float _pushSpeedModifier = 0.95f;
 
     private void CalculateWalk() {
         if (Inputs.X != 0) {
