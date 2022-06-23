@@ -10,20 +10,21 @@ public class DictionaryObject : MonoBehaviour
     
     public string sentence;
     public Definition definition;
+    private Collider2D myCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         //Creates the definition, has to be inside a method so it's here
         definition = new Definition(sentence, swappable);
-
+        myCollider = gameObject.GetComponent<Collider2D>();
         UpdateText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Probably will use this later so just keeping it here for now
+        //
     }
 
     #region PROPERTIES
@@ -82,4 +83,47 @@ public class DictionaryObject : MonoBehaviour
         }
     }
     #endregion
+
+    private bool PlayerInContact()
+    {
+        List<Collider2D> contacts = new List<Collider2D>();
+
+        myCollider.GetContacts(contacts);
+
+        foreach(Collider2D collider in contacts)
+        {
+            if(collider.tag.Equals("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private Collider2D GetPlayerInContactCollider()
+    {
+        List<Collider2D> contacts = new List<Collider2D>();
+
+        myCollider.GetContacts(contacts);
+
+        foreach (Collider2D collider in contacts)
+        {
+            if (collider.tag.Equals("Player"))
+            {
+                return collider;
+            }
+        }
+        return null;
+    }
+}
+
+public enum ActiveKeyword
+{
+    None,
+    Deadly,
+    Moveable,
+    Floating,
+    Swimmable,
+    Controllable,
+    Passable,
+    Climbable
 }

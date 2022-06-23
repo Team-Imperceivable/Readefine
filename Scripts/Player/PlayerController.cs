@@ -535,4 +535,14 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         spellbookText.text = spellbook.GetWord();
     }
     #endregion
+
+    #region Respawn
+    [Header("Respawn")]
+    [SerializeField] private Transform respawnPoint;
+
+    public void Kill()
+    {
+        transform.position = respawnPoint.position;
+    }
+    #endregion
 }
