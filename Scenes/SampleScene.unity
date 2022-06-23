@@ -1232,22 +1232,6 @@ PrefabInstance:
       propertyPath: player
       value:
       objectReference: {fileID: 7101784320859691661}
-    - target: {fileID: 5504086457195555323, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: sentence
-      value: object moveable
-      objectReference: {fileID: 0}
-    - target: {fileID: 5504086457195555323, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: swappable
-      value: moveable
-      objectReference: {fileID: 0}
-    - target: {fileID: 5504086457195555323, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: solutions.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5504086457195555323, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: solutions.Array.data[0]
-      value: moveable
-      objectReference: {fileID: 0}
     - target: {fileID: 5642912539765322769, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -1270,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6929060752300316211, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.64
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6929060752300316211, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1585,6 +1569,10 @@ PrefabInstance:
       propertyPath: respawnPoint
       value:
       objectReference: {fileID: 1618274066}
+    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: startingWord
+      value: controllable
+      objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: objectLayer.m_Bits
       value: 128

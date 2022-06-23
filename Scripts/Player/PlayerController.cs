@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] private float _moveClamp = 13;
     [SerializeField] private float _deAcceleration = 60f;
     [SerializeField] private float _apexBonus = 2;
-    [SerializeField] private float _pushSpeedModifier;
+    [SerializeField] private float _pushSpeedModifier = 0.95f;
 
     private void CalculateWalk() {
         if (Inputs.X != 0) {
