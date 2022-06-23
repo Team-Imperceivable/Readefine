@@ -66,6 +66,7 @@ public class DictionaryObject : MonoBehaviour
                 CalculateJump(playerInputs);
 
                 MoveCharacter();
+                Debug.Log(RawMovement);
                 break;
         }
     }
@@ -129,8 +130,6 @@ public class DictionaryObject : MonoBehaviour
                 keyword = ActiveKeyword.Deadly;
             if (swappable.Equals("moveable"))
                 keyword = ActiveKeyword.Moveable;
-            else
-                rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             if (swappable.Equals("controllable"))
                 keyword = ActiveKeyword.Controllable;
         } else
