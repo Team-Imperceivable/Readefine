@@ -50,7 +50,9 @@ public class Parallax : MonoBehaviour
 
     private Vector3 GetDelta()
     {
-        return transform.position - lastPos;
+        Vector3 vector = transform.position - lastPos;
+        vector.z = 0f;
+        return vector;
     }
 
     private void OnGizmosDraw()
