@@ -297,6 +297,9 @@ MonoBehaviour:
   _minFallSpeed: 80
   _maxFallSpeed: 120
   climbSpeed: 10
+  climbableLayer:
+    serializedVersion: 2
+    m_Bits: 512
   canClimb: 0
   topOfLadder: 0
   swimmingVerticalModifier: 0

@@ -27,12 +27,14 @@ public class DictionaryObject : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         normalGravity = rb.gravityScale;
         normalLayer = gameObject.layer;
+        onTopBounds = new Bounds(head.position, new Vector3(onTopCheckWidth, onTopCheckHeight, 0f));
         UpdateText();
     }
 
     // Update is called once per frame
     void Update()
     {
+        onTopBounds = new Bounds(head.position, new Vector3(onTopCheckWidth, onTopCheckHeight, 0f));
         AlterProperties();
         switch (keyword)
         {
@@ -55,6 +57,22 @@ public class DictionaryObject : MonoBehaviour
                 foreach(Collider2D collider in GetOnTop())
                 {
                     collider.transform.position += floatMove;
+                }
+                break;
+            case ActiveKeyword.Climbable:
+                gameObject.layer = LayerMask.NameToLayer("Passable");
+                Collider2D climbingCollider = Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0, interactableLayers);
+                if (climbingCollider != null && climbingCollider.gameObject != this)
+                {
+                    if(climbingCollider.tag.Equals("Player"))
+                    {
+                        PlayerController controller = climbingCollider.gameObject.GetComponent<PlayerController>();
+                        controller.canClimb = true;
+                    } else if(LayerMask.LayerToName(climbingCollider.gameObject.layer).Equals("Object"))
+                    {
+                        DictionaryObject dictObj = climbingCollider.gameObject.GetComponent<DictionaryObject>();
+                        dictObj.canClimb = true;
+                    }    
                 }
                 break;
             case ActiveKeyword.Passable:
@@ -194,6 +212,8 @@ public class DictionaryObject : MonoBehaviour
                 keyword = ActiveKeyword.Passable;
             if(swappable.Equals("swimmable"))
                 keyword = ActiveKeyword.Swimmable;
+            else if (swappable.Equals("climbable"))
+                keyword = ActiveKeyword.Climbable;
             else
                 gameObject.layer = normalLayer;
         } else
@@ -249,7 +269,7 @@ public class DictionaryObject : MonoBehaviour
             useLayerMask = true,
             layerMask = interactableLayers
         };
-        Physics2D.OverlapBox(head.position, new Vector2(onTopCheckWidth, onTopCheckHeight), 0f, filter, contacts);
+        Physics2D.OverlapBox(head.position, onTopBounds.size, 0f, filter, contacts);
         return contacts;
     }
 
@@ -263,6 +283,7 @@ public class DictionaryObject : MonoBehaviour
     public Vector3 Velocity { get; private set; }
     public Vector3 RawMovement { get; private set; }
     public bool Grounded => _colDown;
+    public Bounds onTopBounds;
     private Vector3 _lastPosition;
     private float _currentHorizontalSpeed, _currentVerticalSpeed;
     private Collider2D movingCollider;
@@ -498,25 +519,31 @@ public class DictionaryObject : MonoBehaviour
 
     [Header("Climbing")]
     [SerializeField] private float climbSpeed = 10f;
+    [SerializeField] private LayerMask climbableLayer;
+    public Bounds topOfLadderBounds;
     public bool canClimb;
     public bool topOfLadder;
+    
 
     private void CalculateClimb(FrameInput Inputs)
     {
         if (canClimb)
         {
-            if (!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+            Collider2D hitCollider = Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, climbableLayer);
+            if (hitCollider != null)
             {
-                _currentVerticalSpeed = climbSpeed * Inputs.Y;
+                DictionaryObject dictObj = hitCollider.gameObject.GetComponent<DictionaryObject>();
+                topOfLadder = FeetTouching(dictObj.onTopBounds);
+                if (!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+                {
+                    _currentVerticalSpeed = climbSpeed * Inputs.Y;
+                }
             }
             else
             {
-
+                topOfLadder = false;
+                canClimb = false;
             }
-        }
-        else
-        {
-            
         }
     }
     public bool FeetTouching(Bounds bounds)

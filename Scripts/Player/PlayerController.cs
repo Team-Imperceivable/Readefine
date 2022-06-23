@@ -331,7 +331,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             _currentVerticalSpeed -= fallSpeed * Time.deltaTime;
 
             // Clamp
-            
             if (_currentVerticalSpeed < _fallClamp ) _currentVerticalSpeed = _fallClamp;
         }
     }
@@ -396,25 +395,35 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #region Climb
     [Header("CLIMBING")]
     [SerializeField] private float climbSpeed;
+    [SerializeField] private LayerMask climbableLayer;
     public bool canClimb;
-    public bool topOfLadder;
+    private bool topOfLadder;
     private bool climbing;
 
     private void CalculateClimb()
     {
         if(canClimb)
         {
-            if(!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+            Collider2D hitCollider = Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, climbableLayer);
+            if (hitCollider != null)
             {
-                _currentVerticalSpeed = climbSpeed * Inputs.Y;
-                climbing = true;
-            } else
+                DictionaryObject dictObj = hitCollider.gameObject.GetComponent<DictionaryObject>();
+                topOfLadder = FeetTouching(dictObj.onTopBounds);
+                if (!(topOfLadder && Inputs.Y > 0f) && !(_colDown && Inputs.Y < 0f))
+                {
+                    _currentVerticalSpeed = climbSpeed * Inputs.Y;
+                    climbing = true;
+                }
+                else
+                {
+                    climbing = false;
+                }
+            }
+            else
             {
+                topOfLadder = false;
                 climbing = false;
             }
-        } else
-        {
-            climbing = false;
         }
     }
     public bool FeetTouching(Bounds bounds)
