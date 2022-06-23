@@ -1134,6 +1134,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4.55
       objectReference: {fileID: 0}
+    - target: {fileID: 741211312288886964, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1485424994284635934, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -1151,28 +1155,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7101784320859691661}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: sentence
-      value: A standard moveable crate
-      objectReference: {fileID: 0}
-    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: swappable
-      value: moveable
-      objectReference: {fileID: 0}
-    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: floatModifier
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: solutions.Array.data[0]
-      value: moveable
-      objectReference: {fileID: 0}
-    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: solutions.Array.data[1]
-      value: floating
+      propertyPath: solutions.Array.data[2]
+      value: passable
       objectReference: {fileID: 0}
     - target: {fileID: 5441051485764642551, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: player
@@ -1514,7 +1506,7 @@ PrefabInstance:
       objectReference: {fileID: 1618274066}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: startingWord
-      value: floating
+      value: passable
       objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: objectLayer.m_Bits

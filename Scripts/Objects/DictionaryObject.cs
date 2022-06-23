@@ -16,6 +16,7 @@ public class DictionaryObject : MonoBehaviour
     private Collider2D myCollider;
     private Rigidbody2D rb;
     private float normalGravity;
+    private LayerMask normalLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,7 @@ public class DictionaryObject : MonoBehaviour
         myCollider = gameObject.GetComponent<Collider2D>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         normalGravity = rb.gravityScale;
+        normalLayer = gameObject.layer;
         UpdateText();
     }
 
@@ -54,6 +56,19 @@ public class DictionaryObject : MonoBehaviour
                 {
                     collider.transform.position += floatMove;
                 }
+                break;
+            case ActiveKeyword.Passable:
+                ContactFilter2D filter = new ContactFilter2D
+                {
+                    useLayerMask = true,
+                    layerMask = interactableLayers
+                };
+                Collider2D[] contacts = new Collider2D[2];
+                if(Physics2D.OverlapBox(transform.position, myCollider.bounds.size, 0f, filter, contacts) > 1)
+                {
+                    gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, passingOpacity);
+                }
+                gameObject.layer = LayerMask.NameToLayer("Passable");
                 break;
             case ActiveKeyword.Controllable:
                 gameObject.tag = "Controllable";
@@ -147,10 +162,15 @@ public class DictionaryObject : MonoBehaviour
                 keyword = ActiveKeyword.Floating;
             else
                 rb.gravityScale = normalGravity;
+            if (swappable.Equals("passable"))
+                keyword = ActiveKeyword.Passable;
+            else
+                gameObject.layer = normalLayer;
         } else
         {
             gameObject.tag = "Untagged";
             keyword = ActiveKeyword.None;
+            gameObject.layer = normalLayer;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
             rb.gravityScale = normalGravity;
         }
@@ -190,18 +210,21 @@ public class DictionaryObject : MonoBehaviour
 
     [Header("Floating")]
     [SerializeField] private float floatSpeed;
-    [SerializeField] private LayerMask liftableLayers;
+    [SerializeField] private LayerMask interactableLayers;
     private List<Collider2D> GetOnTop()
     {
         List<Collider2D> contacts = new List<Collider2D>();
         ContactFilter2D filter = new ContactFilter2D
         {
             useLayerMask = true,
-            layerMask = liftableLayers
+            layerMask = interactableLayers
         };
         Physics2D.OverlapBox(head.position, new Vector2(onTopCheckWidth, onTopCheckHeight), 0f, filter, contacts);
         return contacts;
     }
+
+    [Header("Passable")]
+    [SerializeField] private float passingOpacity;
 
     #region Controllable Movement
 
