@@ -15,6 +15,7 @@ public class DictionaryObject : MonoBehaviour
     public ActiveKeyword keyword = ActiveKeyword.None;
     private Collider2D myCollider;
     private Rigidbody2D rb;
+    private float normalGravity;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class DictionaryObject : MonoBehaviour
         definition = new Definition(sentence, swappable);
         myCollider = gameObject.GetComponent<Collider2D>();
         rb = gameObject.GetComponent<Rigidbody2D>();
+        normalGravity = rb.gravityScale;
         UpdateText();
     }
 
@@ -143,11 +145,14 @@ public class DictionaryObject : MonoBehaviour
                 keyword = ActiveKeyword.Controllable;
             if (swappable.Equals("floating"))
                 keyword = ActiveKeyword.Floating;
+            else
+                rb.gravityScale = normalGravity;
         } else
         {
             gameObject.tag = "Untagged";
             keyword = ActiveKeyword.None;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.gravityScale = normalGravity;
         }
     }
     #endregion

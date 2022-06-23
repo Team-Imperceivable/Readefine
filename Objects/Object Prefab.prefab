@@ -255,10 +255,9 @@ MonoBehaviour:
   swappable: Normal
   sentence: A standard Normal crate
   keyword: 0
-  solutions:
-  - 
+  solutions: []
   definitionTextBox: {fileID: 595905790981689247}
-  floatSpeed: 1
+  floatSpeed: 5
   liftableLayers:
     serializedVersion: 2
     m_Bits: 136
@@ -267,7 +266,7 @@ MonoBehaviour:
     m_Extent: {x: 1.25, y: 1.2, z: 0}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   _detectorCount: 3
   _detectionRayLength: 0.05
   _rayBuffer: 0.1
@@ -311,7 +310,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

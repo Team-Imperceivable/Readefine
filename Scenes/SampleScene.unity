@@ -1052,7 +1052,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1593060963}
   - component: {fileID: 1593060962}
-  m_Layer: 0
+  - component: {fileID: 1593060964}
+  m_Layer: 8
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1079,7 +1080,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593060961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.58, y: 2.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1087,6 +1088,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1593060964
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593060961}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 16, y: 1}
+  m_EdgeRadius: 0
 --- !u!4 &1618274066 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 349966044816276815, guid: f5b7afc2d71c82243886d14ba44a2327, type: 3}
@@ -1124,8 +1151,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7101784320859691661}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: sentence
+      value: A standard moveable crate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: swappable
+      value: moveable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: floatModifier
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: solutions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: solutions.Array.data[0]
+      value: moveable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: solutions.Array.data[1]
+      value: floating
       objectReference: {fileID: 0}
     - target: {fileID: 5441051485764642551, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: player
@@ -1186,10 +1233,6 @@ PrefabInstance:
     - target: {fileID: 6929060752300316211, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8019027968779201649, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
-      propertyPath: m_GravityScale
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2747840278009239610, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
@@ -1476,6 +1519,10 @@ PrefabInstance:
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: objectLayer.m_Bits
       value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: platformLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594663, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: m_RootOrder
