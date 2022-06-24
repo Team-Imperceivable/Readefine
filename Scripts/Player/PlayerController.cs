@@ -536,27 +536,29 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos);
-            //Open Spellbook
-            if (spellbookWindow != null && hitCollider != null && hitCollider.gameObject.tag.Equals("Player"))
-            {
-                if (spellbookWindow.enabled)
-                {
-                    spellbookWindow.enabled = false;
-                }
-                else
-                {
-                    //Update window and enable it
-                    Text spellbookText = gameObject.GetComponentInChildren(typeof(Text), true) as Text;
-                    spellbookText.text = spellbook.GetWord();
-                    spellbookWindow.enabled = true;
-                }
-                return;
-            }
+            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, interactableLayers);
 
-            hitCollider = Physics2D.Raycast(myCollider.ClosestPoint(mousePos), mousePos, maxDistance, interactableLayers).collider;
+            if (Vector3.Distance(hitCollider.ClosestPoint(transform.position), myCollider.ClosestPoint(hitCollider.transform.position)) > maxDistance)
+                return;
+
             if(hitCollider != null)
             {
+                //Open Spellbook
+                if (hitCollider.gameObject.tag.Equals("Player"))
+                {
+                    if (spellbookWindow.enabled)
+                    {
+                        spellbookWindow.enabled = false;
+                    }
+                    else
+                    {
+                        //Update window and enable it
+                        Text spellbookText = gameObject.GetComponentInChildren(typeof(Text), true) as Text;
+                        spellbookText.text = spellbook.GetWord();
+                        spellbookWindow.enabled = true;
+                    }
+                }
+
                 GameObject hitObject = hitCollider.gameObject;
                 mostRecentCollider = hitCollider;
                 //Open object definition

@@ -1030,30 +1030,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1400790780730847926, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0188
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594660, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: feet
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: _jumpHeight
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: _acceleration
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594663, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5822436143276877914, guid: 37bc8bf25d1dd2b4797e827f596628dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.09
@@ -1092,6 +1068,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5822436143276877914, guid: 37bc8bf25d1dd2b4797e827f596628dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400790780730847926, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0188
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594660, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: feet
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: _jumpHeight
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: _acceleration
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7101784322742594663, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
