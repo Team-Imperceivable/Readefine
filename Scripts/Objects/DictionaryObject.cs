@@ -228,7 +228,7 @@ public class DictionaryObject : MonoBehaviour
             gameObject.tag = "Untagged";
             keyword = ActiveKeyword.None;
             gameObject.layer = normalLayer;
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
             rb.gravityScale = normalGravity;
         }
     }
