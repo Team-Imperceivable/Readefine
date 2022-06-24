@@ -1650,28 +1650,12 @@ PrefabInstance:
       value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: maxDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: startingWord
       value: moveable
       objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: _acceleration
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: _detectorCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: objectLayer.m_Bits
       value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: _detectionRayLength
-      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: _characterBounds.m_Center.y

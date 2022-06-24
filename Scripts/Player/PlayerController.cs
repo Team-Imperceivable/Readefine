@@ -538,11 +538,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
             Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, interactableLayers);
 
-            if (Vector3.Distance(hitCollider.ClosestPoint(transform.position), myCollider.ClosestPoint(hitCollider.transform.position)) > maxDistance)
-                return;
-
             if(hitCollider != null)
             {
+                if (Vector3.Distance(hitCollider.ClosestPoint(transform.position), myCollider.ClosestPoint(hitCollider.transform.position)) > maxDistance)
+                    return;
+
                 //Open Spellbook
                 if (hitCollider.gameObject.tag.Equals("Player"))
                 {
@@ -557,6 +557,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                         spellbookText.text = spellbook.GetWord();
                         spellbookWindow.enabled = true;
                     }
+                    return;
                 }
 
                 GameObject hitObject = hitCollider.gameObject;
