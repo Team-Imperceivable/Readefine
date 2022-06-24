@@ -517,16 +517,16 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private LayerMask objectLayer;
     private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
     private Canvas definitionWindow;
-    private DictionaryObject mostRecentObject;
+    private Collider2D mostRecentCollider;
 
     private void CheckInteract()
     {
         if (Inputs.Reset)
             Kill();
 
-        if(mostRecentObject != null && definitionWindow != null&& definitionWindow.enabled)
+        if(mostRecentCollider != null && definitionWindow != null && definitionWindow.enabled)
         {
-            if(Vector3.Distance(mostRecentObject.GetPosition(), transform.position) > maxDistance)
+            if(Vector3.Distance(mostRecentCollider.ClosestPoint(transform.position), myCollider.ClosestPoint(mostRecentCollider.transform.position)) > maxDistance)
             {
                 definitionWindow.enabled = false;
             }
@@ -535,55 +535,53 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         if (Inputs.Interact)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            
-            Collider2D hitCollider = Physics2D.Raycast(myCollider.ClosestPoint(mousePos), mousePos, maxDistance, interactableLayers).collider;
+
+            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos);
+            //Open Spellbook
+            if (spellbookWindow != null && hitCollider != null && hitCollider.gameObject.tag.Equals("Player"))
+            {
+                if (spellbookWindow.enabled)
+                {
+                    spellbookWindow.enabled = false;
+                }
+                else
+                {
+                    //Update window and enable it
+                    Text spellbookText = gameObject.GetComponentInChildren(typeof(Text), true) as Text;
+                    spellbookText.text = spellbook.GetWord();
+                    spellbookWindow.enabled = true;
+                }
+                return;
+            }
+
+            hitCollider = Physics2D.Raycast(myCollider.ClosestPoint(mousePos), mousePos, maxDistance, interactableLayers).collider;
             if(hitCollider != null)
             {
                 GameObject hitObject = hitCollider.gameObject;
-                if(hitObject.tag.Equals("Player"))
+                mostRecentCollider = hitCollider;
+                //Open object definition
+                if(definitionWindow == null)
                 {
-                    //Open Spellbook
-                    if (spellbookWindow != null)
-                    {
-                        if(spellbookWindow.enabled)
-                        {
-                            spellbookWindow.enabled = false;
-                        } else
-                        {
-                            //Update window and enable it
-                            Text spellbookText = gameObject.GetComponentInChildren(typeof(Text), true) as Text;
-                            spellbookText.text = spellbook.GetWord();
-                            spellbookWindow.enabled = true;
-                        }
-                    }
-                } else if(LayerMask.LayerToName(hitObject.layer).Equals("Object") || LayerMask.LayerToName(hitObject.layer).Equals("Passable"))
+                    //If no window stored, store it and enable it
+                    definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                    definitionWindow.enabled = true;
+                    DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
+                    dictObj.UpdateText();
+                }
+                else
                 {
-                    mostRecentObject = hitObject.GetComponent<DictionaryObject>();
-                    //Open object definition
-                    if(definitionWindow == null)
+                    //Disable stored window and open new one
+                    Canvas newWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
+                    if(newWindow != definitionWindow)
                     {
-                        //If no window stored, store it and enable it
-                        definitionWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
-                        definitionWindow.enabled = true;
+                        definitionWindow.enabled = false;
+                        newWindow.enabled = true;
+                        definitionWindow = newWindow;
                         DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
                         dictObj.UpdateText();
-                    }
-                    else
+                    } else
                     {
-                        //Disable stored window and open new one
-                        Canvas newWindow = hitObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
-                        if(newWindow != definitionWindow)
-                        {
-                            definitionWindow.enabled = false;
-                            newWindow.enabled = true;
-                            definitionWindow = newWindow;
-                            DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
-                            dictObj.UpdateText();
-                        } else
-                        {
-                            definitionWindow.enabled = !definitionWindow.enabled;
-                        }
+                        definitionWindow.enabled = !definitionWindow.enabled;
                     }
                 }
             }
