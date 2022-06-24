@@ -431,7 +431,8 @@ MonoBehaviour:
   _freeColliderIterations: 10
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 648
+    m_Bits: 640
+  maxDistance: 5
   startingWord: passable
   respawnScript: {fileID: 5353958712468905613}
 --- !u!61 &7101784322742594656
