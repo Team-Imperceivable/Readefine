@@ -977,6 +977,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+--- !u!4 &1722310512 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524812753034434, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1722310513 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524812451203467, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1722310514 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524811988774765, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1722310515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524812470963607, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1722310516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524812819445710, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1722310517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4798524811774623952, guid: 457a14cf23f7f9148b83d1019c843f43, type: 3}
+  m_PrefabInstance: {fileID: 1722310511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1753653379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1842,23 +1872,27 @@ PrefabInstance:
     - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: targets.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1722310517}
     - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: targets.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1722310516}
     - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: targets.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1722310515}
     - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: targets.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1722310514}
     - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: targets.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1722310513}
+    - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
+      propertyPath: targets.Array.data[5]
+      value: 
+      objectReference: {fileID: 1722310512}
     - target: {fileID: 1567929081749516277, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: m_Name
       value: Main Camera
