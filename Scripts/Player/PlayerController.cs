@@ -203,6 +203,24 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         return false;
     }
 
+    private string GetUnderneath()
+    {
+        Collider2D underneath = Physics2D.OverlapPoint(feet.position);
+        if (underneath != null)
+        {
+            if (LayerMask.LayerToName(underneath.layer).Equals("Ground"))
+                return "Ground";
+            if (LayerMask.LayerToName(underneath.layer).Equals("Water"))
+                return "Water";
+            if (LayerMask.LayerToName(underneath.layer).Equals("Platform"))
+                return "Platform";
+            if (LayerMask.LayerToName(underneath.layer).Equals("Object"))
+                return "Object";
+        }
+
+        return "None";
+    }
+
     private void CalculateRayRanged() {
         // This is crying out for some kind of refactor. 
         var b = new Bounds(transform.position + _characterBounds.center, _characterBounds.size);
