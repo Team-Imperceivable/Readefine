@@ -138,7 +138,6 @@ public class DictionaryObject : MonoBehaviour
                 CalculateSwimming();
 
                 MoveCharacter();
-                Debug.Log(RawMovement);
                 break;
         }
     }
@@ -169,6 +168,11 @@ public class DictionaryObject : MonoBehaviour
     {
         definition.SetSwappable(swappable);
         definitionTextBox.text = definition.GetDefinition();
+    }
+
+    public Vector3 GetPosition()
+    {
+        return feet.position;
     }
 
     /// <summary>

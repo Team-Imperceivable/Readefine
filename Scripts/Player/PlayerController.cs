@@ -179,21 +179,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         }
     }
 
-    private void StopClippable()
-    {
-        ContactFilter2D groundFilter = new ContactFilter2D
-        {
-            useLayerMask = true,
-            layerMask = LayerMask.NameToLayer("Ground")
-        };
-        Collider2D[] results = new Collider2D[2];
-        if(myCollider.OverlapCollider(groundFilter, results) > 1)
-        {
-            Debug.Log(results[0].gameObject.name);
-            transform.position = _lastPosition;
-        }
-    }
-
     //Check if colliding with a Moveable object
     private bool CheckMoveable()
     {
@@ -528,19 +513,31 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     #region Interact
     [Header("INTERACT")]
     [SerializeField] private LayerMask interactableLayers;
+    [SerializeField] private float maxDistance;
     private LayerMask objectLayer;
     private Canvas spellbookWindow => gameObject.GetComponentInChildren(typeof(Canvas), true) as Canvas;
     private Canvas definitionWindow;
+    private DictionaryObject mostRecentObject;
 
     private void CheckInteract()
     {
         if (Inputs.Reset)
             Kill();
+
+        if(mostRecentObject != null && definitionWindow != null&& definitionWindow.enabled)
+        {
+            if(Vector3.Distance(mostRecentObject.GetPosition(), transform.position) > maxDistance)
+            {
+                definitionWindow.enabled = false;
+            }
+        }
+
         if (Inputs.Interact)
         {
-
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Collider2D hitCollider = Physics2D.OverlapPoint(mousePos, interactableLayers);
+            
+            
+            Collider2D hitCollider = Physics2D.Raycast(myCollider.ClosestPoint(mousePos), mousePos, maxDistance, interactableLayers).collider;
             if(hitCollider != null)
             {
                 GameObject hitObject = hitCollider.gameObject;
@@ -562,6 +559,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                     }
                 } else if(LayerMask.LayerToName(hitObject.layer).Equals("Object") || LayerMask.LayerToName(hitObject.layer).Equals("Passable"))
                 {
+                    mostRecentObject = hitObject.GetComponent<DictionaryObject>();
                     //Open object definition
                     if(definitionWindow == null)
                     {
