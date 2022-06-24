@@ -1006,6 +1006,14 @@ PrefabInstance:
       propertyPath: swappable
       value: Normal
       objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: _characterBounds.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: _characterBounds.m_Extent.y
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5441051485764642551, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: player
       value: 
