@@ -127,7 +127,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             JumpUp = Input.GetButtonUp("Jump"),
             X = Input.GetAxisRaw("Horizontal"),
             Y = Input.GetAxisRaw("Vertical"),
-            Interact = Input.GetButtonDown("Fire1")
+            Interact = Input.GetButtonDown("Fire1"),
+            Reset = Input.GetKeyDown(KeyCode.R)
         };
         if (Inputs.JumpDown) {
             _lastJumpPressed = Time.time;
@@ -533,7 +534,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void CheckInteract()
     {
-        if(Inputs.Interact)
+        if (Inputs.Reset)
+            Kill();
+        if (Inputs.Interact)
         {
 
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

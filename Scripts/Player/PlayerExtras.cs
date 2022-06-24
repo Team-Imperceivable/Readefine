@@ -8,6 +8,7 @@ public struct FrameInput {
     public bool JumpDown;
     public bool JumpUp;
     public bool Interact;
+    public bool Reset;
 }
 
 public interface IPlayerController {
