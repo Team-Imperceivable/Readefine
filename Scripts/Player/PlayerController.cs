@@ -208,16 +208,15 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         Collider2D underneath = Physics2D.OverlapPoint(feet.position);
         if (underneath != null)
         {
-            if (LayerMask.LayerToName(underneath.layer).Equals("Ground"))
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Ground"))
                 return "Ground";
-            if (LayerMask.LayerToName(underneath.layer).Equals("Water"))
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Water"))
                 return "Water";
-            if (LayerMask.LayerToName(underneath.layer).Equals("Platform"))
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Platform"))
                 return "Platform";
-            if (LayerMask.LayerToName(underneath.layer).Equals("Object"))
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Object"))
                 return "Object";
         }
-
         return "None";
     }
 
