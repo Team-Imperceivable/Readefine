@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         //StopClippable();
 
         CheckInteract();
+        HandleAudio();
     }
 
     private void HandleDirections()
@@ -203,23 +204,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         return false;
     }
 
-    private string GetUnderneath()
-    {
-        Collider2D underneath = Physics2D.OverlapPoint(feet.position);
-        if (underneath != null)
-        {
-            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Ground"))
-                return "Ground";
-            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Water"))
-                return "Water";
-            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Platform"))
-                return "Platform";
-            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Object"))
-                return "Object";
-        }
-        return "None";
-    }
-
     private void CalculateRayRanged() {
         // This is crying out for some kind of refactor. 
         var b = new Bounds(transform.position + _characterBounds.center, _characterBounds.size);
@@ -246,6 +230,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(leftBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
         Gizmos.DrawWireCube(rightBound.position, new Vector2(moveableCheckWidth, moveableCheckHeight));
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position + checkBounds.center, checkBounds.size);
 
         // Rays
         if (!Application.isPlaying) {
@@ -627,6 +613,35 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public void Kill()
     {
         respawnScript.Reset();
+    }
+    #endregion
+
+    #region Audio
+    [Header("AUDIO")]
+    [SerializeField] private PlayerSFX SFX;
+    [SerializeField] private LayerMask SFXLayers;
+    [SerializeField] private Bounds checkBounds;
+
+    private string GetUnderneath()
+    {
+        Collider2D underneath = Physics2D.OverlapBox(transform.position + checkBounds.center, checkBounds.size, 0f, SFXLayers);
+        if (underneath != null)
+        {
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Ground"))
+                return "Ground";
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Water"))
+                return "Water";
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Platform"))
+                return "Platform";
+            if (LayerMask.LayerToName(underneath.gameObject.layer).Equals("Object"))
+                return "Object";
+        }
+        return "None";
+    }
+    private void HandleAudio()
+    {
+        if(_colDown && _currentHorizontalSpeed != 0)
+            SFX.PlayAudio(GetUnderneath());
     }
     #endregion
 }
