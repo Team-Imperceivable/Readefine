@@ -436,7 +436,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 648
   maxDistance: 5
-  startingWord: none
+  startingWord: normal
   respawnScript: {fileID: 5353958712468905613}
   SFX: {fileID: 2135530841198719290}
   SFXLayers:
@@ -643,7 +643,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7101784322777477472}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}

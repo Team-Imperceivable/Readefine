@@ -7,7 +7,7 @@ public class AudioPlaylist : MonoBehaviour
     [SerializeField] private List<AudioClip> songs;
     private AudioSource audioSource;
     int index;
-    bool finishedLoad;
+    bool finishedLoad = false;
 
     // Start is called before the first frame update
     void Start()

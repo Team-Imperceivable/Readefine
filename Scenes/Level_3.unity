@@ -1541,10 +1541,6 @@ PrefabInstance:
       propertyPath: feet
       value: 
       objectReference: {fileID: 1455039188}
-    - target: {fileID: 7101784322742594661, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
-      propertyPath: startingWord
-      value: normal
-      objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594663, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1604,7 +1600,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3fb002005cc8c438c15adfee2dd34d, type: 3}
+  m_Script: {fileID: 11500000, guid: e8827385230dc8e469cc3413aaf3578b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2130408537

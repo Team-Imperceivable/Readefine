@@ -408,6 +408,10 @@ PrefabInstance:
       propertyPath: targets.Array.data[5]
       value: 
       objectReference: {fileID: 1600707066}
+    - target: {fileID: 1567929081749516273, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
+      propertyPath: followBounds.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1567929081749516277, guid: 059d6588aeeded342a1336d1dc2c9dad, type: 3}
       propertyPath: m_Name
       value: Main Camera
