@@ -44,7 +44,7 @@ public class NextScene : MonoBehaviour
                 activeSceneName = "Level_1";
             } else
             {
-                //Load victory scene?
+                activeSceneName = "Credits";
             }
         }
         SceneManager.LoadScene(activeSceneName);

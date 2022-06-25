@@ -8,9 +8,11 @@ public class CreditsScript : MonoBehaviour
 {
     [SerializeField] private float delayTime;
     [SerializeField] private float scrollSpeed;
+    [SerializeField] private Canvas parentCanvas;
     [SerializeField] private float endY;
     private RectTransform[] zones;
     private string storedWord = "Thanks For Playing!";
+    
 
     // Start is called before the first frame update
     void Start()
@@ -46,5 +48,13 @@ public class CreditsScript : MonoBehaviour
         {
             SceneManager.LoadSceneAsync("Menu");
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Vector3 endPos = new Vector3(0f, -endY, 0f);
+        endPos += transform.position;
+        Gizmos.DrawWireCube(endPos, parentCanvas.pixelRect.size);
     }
 }
