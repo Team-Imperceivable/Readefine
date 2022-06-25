@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         MoveCharacter(); // Actually perform the axis movement
         if(insideGround())
         {
-            Debug.Log("Got Here");
             moveUp();
         }
 
@@ -229,7 +228,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private bool insideGround()
     {
         Collider2D contact = Physics2D.OverlapBox(transform.position + _characterBounds.center, _characterBounds.size, 0f, _groundLayer);
-        return contact != null;
+        return contact != null && contact.transform.position.y <= transform.position.y;
     }
 
     private void moveUp()
