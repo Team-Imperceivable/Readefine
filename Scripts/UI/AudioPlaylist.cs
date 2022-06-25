@@ -7,36 +7,50 @@ public class AudioPlaylist : MonoBehaviour
     [SerializeField] private List<AudioClip> songs;
     private AudioSource audioSource;
     int index;
-    bool finishedLoad = false;
+    bool finishedLoad;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
-        ShuffleSongs();
-        index = 0;
-        audioSource.Pause();
+        if(songs.Count > 1)
+        {
+            ShuffleSongs();
+            index = 0;
+            audioSource.Pause();
+            finishedLoad = false;
+        } else
+        {
+            audioSource.clip = songs[0];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!finishedLoad)
+        if(songs.Count > 1)
         {
-            finishedLoad = true;
-            audioSource.UnPause();
-        }
-        if(index >= songs.Count - 1)
+            if (!finishedLoad)
+            {
+                finishedLoad = true;
+                audioSource.UnPause();
+            }
+            if (index >= songs.Count - 1)
+            {
+                ShuffleSongs();
+                index = 0;
+            }
+            else if (!audioSource.isPlaying)
+            {
+                audioSource.clip = songs[index];
+                audioSource.Play();
+                index++;
+            }
+        } else if(!audioSource.isPlaying)
         {
-            ShuffleSongs();
-            index = 0;
-        }
-        else if(!audioSource.isPlaying)
-        {
-            audioSource.clip = songs[index];
             audioSource.Play();
-            index++;
         }
+        
     }
 
     private void ShuffleSongs()
