@@ -69,7 +69,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 25f2e8cf18b476d4c9bf858d56210f48, type: 3}
     m_FontSize: 20
-    m_FontStyle: 2
+    m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 30
@@ -392,7 +392,7 @@ MonoBehaviour:
   animator: {fileID: 8663092962186339785}
   _characterBounds:
     m_Center: {x: 0, y: 0.025, z: 0}
-    m_Extent: {x: 0.45, y: 1.25, z: 0}
+    m_Extent: {x: 0.5, y: 1.25, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 192
@@ -415,7 +415,7 @@ MonoBehaviour:
   _fallClamp: -40
   _minFallSpeed: 80
   _maxFallSpeed: 120
-  _jumpHeight: 25
+  _jumpHeight: 27
   _jumpApexThreshold: 10
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
@@ -435,7 +435,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 648
   maxDistance: 5
-  startingWord: passable
+  startingWord: floating
   respawnScript: {fileID: 5353958712468905613}
   SFX: {fileID: 2135530841198719290}
   SFXLayers:
@@ -496,8 +496,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volume: 1
   bufferTime: 0.5
-  walk_grass: {fileID: 8300000, guid: ab7707ce41114b741a9208727c3c9bb0, type: 3}
-  walk_wood: {fileID: 8300000, guid: 05506aed6efe911428a8dae812ccc628, type: 3}
+  walk_grass: {fileID: 8300000, guid: 1fc667bed15d37243bd5188485ab3f05, type: 3}
+  walk_wood: {fileID: 8300000, guid: 53c0ff69b27b1db4f9a95a15487554ec, type: 3}
   swim: {fileID: 8300000, guid: 9b69c6e20321eb54991664bdbd2483f6, type: 3}
 --- !u!82 &2107044825076226960
 AudioSource:
@@ -804,7 +804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9134410672961383281}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalPosition: {x: 0, y: -0.025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
