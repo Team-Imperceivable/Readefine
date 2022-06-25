@@ -9,6 +9,7 @@ public class PlayerSFX : MonoBehaviour
     [SerializeField] private AudioClip walk_grass;
     [SerializeField] private AudioClip walk_wood;
     [SerializeField] private AudioClip swim;
+    [SerializeField] private AudioClip swap;
 
     private AudioSource audioSource;
     
@@ -83,5 +84,11 @@ public class PlayerSFX : MonoBehaviour
             nextTime += bufferTime;
             audioSource.PlayScheduled(nextTime);
         }
+    }
+
+    public void PlaySwapEffect()
+    {
+        audioSource.clip = swap;
+        audioSource.Play();
     }
 }

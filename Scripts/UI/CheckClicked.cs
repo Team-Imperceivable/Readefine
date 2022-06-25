@@ -8,12 +8,12 @@ public class CheckClicked : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 {
     [SerializeField] private string clickedMethodName;
     [SerializeField] private Color hoverColor;
-    private Text text;
+    private Image text;
     private Color normalColor;
 
     void Start()
     {
-        text = gameObject.GetComponent<Text>();
+        text = gameObject.GetComponent<Image>();
         normalColor = text.color;
     }
 

@@ -588,6 +588,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                     definitionWindow.enabled = true;
                     DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
                     dictObj.UpdateText();
+                    SFX.PlaySwapEffect();
                 }
                 else
                 {
@@ -600,6 +601,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                         definitionWindow = newWindow;
                         DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
                         dictObj.UpdateText();
+                        SFX.PlaySwapEffect();
                     } else
                     {
                         definitionWindow.enabled = !definitionWindow.enabled;
