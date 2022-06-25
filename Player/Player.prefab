@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: controllable
+  m_Text: spell
 --- !u!1 &2413210088910216747
 GameObject:
   m_ObjectHideFlags: 0
