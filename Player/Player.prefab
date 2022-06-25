@@ -407,6 +407,7 @@ MonoBehaviour:
   rightBound: {fileID: 8982201842804006565}
   leftBound: {fileID: 1400790780730847926}
   feet: {fileID: 3065252721006728880}
+  antiClipYAmount: 0.1
   _acceleration: 60
   _moveClamp: 13
   _deAcceleration: 60
@@ -435,7 +436,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 648
   maxDistance: 5
-  startingWord: floating
+  startingWord: none
   respawnScript: {fileID: 5353958712468905613}
   SFX: {fileID: 2135530841198719290}
   SFXLayers:

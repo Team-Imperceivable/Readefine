@@ -57,7 +57,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
 
         MoveCharacter(); // Actually perform the axis movement
-        //StopClippable();
+        if(insideGround())
+        {
+            Debug.Log("Got Here");
+            moveUp();
+        }
 
         CheckInteract();
         HandleAudio();
@@ -147,7 +151,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     [SerializeField] [Range(0.1f, 0.3f)] private float _rayBuffer = 0.1f; // Prevents side detectors hitting the ground
     [SerializeField] private float moveableCheckWidth, moveableCheckHeight;
     [SerializeField] private Transform rightBound, leftBound, feet;
-    
+    [SerializeField] private float antiClipYAmount;
 
     private RayRange _raysUp, _raysRight, _raysDown, _raysLeft;
     private bool _colUp, _colRight, _colDown, _colLeft;
@@ -220,6 +224,18 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             var t = (float)i / (_detectorCount - 1);
             yield return Vector2.Lerp(range.Start, range.End, t);
         }
+    }
+
+    private bool insideGround()
+    {
+        Collider2D contact = Physics2D.OverlapBox(transform.position + _characterBounds.center, _characterBounds.size, 0f, _groundLayer);
+        return contact != null;
+    }
+
+    private void moveUp()
+    {
+        Vector3 upVector = new Vector3(0f, antiClipYAmount, 0f);
+        transform.position += upVector;
     }
 
     private void OnDrawGizmos() {
