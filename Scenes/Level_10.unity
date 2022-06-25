@@ -1211,6 +1211,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 28e76c7866cd5c647a413e355ae4dc12, type: 3}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
+      propertyPath: keyword
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: sentence
       value: A standard crate
       objectReference: {fileID: 0}
@@ -1220,7 +1224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.data[0]
@@ -1228,11 +1232,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.data[1]
-      value: controllable
+      value: floating
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.data[2]
-      value: controllable
+      value: none
       objectReference: {fileID: 0}
     - target: {fileID: 2598467423315330512, guid: 855289e665657bc48b2b2518211ea0e3, type: 3}
       propertyPath: solutions.Array.data[3]
@@ -1350,7 +1354,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3fb002005cc8c438c15adfee2dd34d, type: 3}
+  m_Script: {fileID: 11500000, guid: e8827385230dc8e469cc3413aaf3578b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2072966937

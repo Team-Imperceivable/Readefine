@@ -10,6 +10,8 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private LayerMask pressableLayers;
     public bool pressed { get; private set; }
 
+    bool initPress;
+
 
     void Start()
     {
@@ -35,10 +37,16 @@ public class ButtonScript : MonoBehaviour
         {
             buttonPressedSprite.enabled = true;
             normalButtonSprite.enabled = false;
+            if (initPress)
+            {
+                GetComponent<AudioSource>().Play();
+                initPress = false;
+            }
         } else
         {
             buttonPressedSprite.enabled = false;
             normalButtonSprite.enabled = true;
+            initPress = true;
         }
             
     }
