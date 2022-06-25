@@ -249,6 +249,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1524806574783939147, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1626467948}
+    - target: {fileID: 1524806574783939147, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
+      propertyPath: storedWord
+      value: controllable
+      objectReference: {fileID: 0}
     - target: {fileID: 6584398170778416297, guid: 1672a32b36cf5f547b94e86308cfbaea, type: 3}
       propertyPath: m_Name
       value: Button Prefab (1)
@@ -602,7 +610,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0000009536743, y: -7.1340456}
+  m_Offset: {x: 0, y: -8.081901}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -613,7 +621,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 35.885315, y: 5.6397476}
+  m_Size: {x: 35.885315, y: 3.7440395}
   m_EdgeRadius: 0
 --- !u!156049354 &1320126255
 Grid:
