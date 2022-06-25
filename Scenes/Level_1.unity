@@ -970,14 +970,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Portal
       objectReference: {fileID: 0}
-    - target: {fileID: 5822436143276877913, guid: 37bc8bf25d1dd2b4797e827f596628dd, type: 3}
-      propertyPath: width
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5822436143276877913, guid: 37bc8bf25d1dd2b4797e827f596628dd, type: 3}
-      propertyPath: height
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 5822436143276877914, guid: 37bc8bf25d1dd2b4797e827f596628dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14
