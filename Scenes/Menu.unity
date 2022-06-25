@@ -1077,7 +1077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 835676717786f1e49909a572ca165da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedMethodName: 
+  clickedMethodName: ShowCredits
   hoverColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1519747950
 GameObject:

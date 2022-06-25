@@ -21,4 +21,9 @@ public class MenuScript : MonoBehaviour
     {
         SceneManager.LoadScene("Level_1");
     }
+
+    public void ShowCredits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
 }

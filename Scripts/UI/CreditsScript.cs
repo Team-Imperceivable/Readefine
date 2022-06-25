@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CreditsScript : MonoBehaviour
 {
     [SerializeField] private float delayTime;
     [SerializeField] private float scrollSpeed;
+    [SerializeField] private float endY;
     private RectTransform[] zones;
     private string storedWord = "Thanks For Playing!";
 
@@ -38,6 +40,11 @@ public class CreditsScript : MonoBehaviour
         {
             Vector3 change = new Vector3(0f, scrollSpeed, 0f);
             transform.position += change;
+        }
+
+        if(transform.position.y > endY)
+        {
+            SceneManager.LoadSceneAsync("Menu");
         }
     }
 }
