@@ -1759,7 +1759,7 @@ MonoBehaviour:
   delayTime: 0
   scrollSpeed: 0.1
   parentCanvas: {fileID: 936239438}
-  endY: 1000
+  endY: 1200
 --- !u!1 &1965642802
 GameObject:
   m_ObjectHideFlags: 0
