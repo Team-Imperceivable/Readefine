@@ -348,6 +348,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7101784322742594656, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
+      propertyPath: m_Size.y
+      value: 0.325
+      objectReference: {fileID: 0}
     - target: {fileID: 7101784322742594660, guid: fe8b31f257f686f4a8dada827d2af597, type: 3}
       propertyPath: m_Name
       value: Player
@@ -594,12 +598,20 @@ PrefabInstance:
       value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: 3253678462986974329, guid: f2a73020ccdbfb74b8ef8901237d6093, type: 3}
+      propertyPath: m_Size.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253678462986974329, guid: f2a73020ccdbfb74b8ef8901237d6093, type: 3}
       propertyPath: m_Size.y
-      value: 7.595771
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3253678462986974329, guid: f2a73020ccdbfb74b8ef8901237d6093, type: 3}
+      propertyPath: m_Offset.x
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3253678462986974329, guid: f2a73020ccdbfb74b8ef8901237d6093, type: 3}
       propertyPath: m_Offset.y
-      value: 0.9391707
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3253678462986974330, guid: f2a73020ccdbfb74b8ef8901237d6093, type: 3}
       propertyPath: m_RootOrder
@@ -1672,6 +1684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ladder Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7767307557073115462, guid: 2dd257df3c15ef646bd19d42d3859785, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 433752449}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dd257df3c15ef646bd19d42d3859785, type: 3}
 --- !u!1 &1855053352

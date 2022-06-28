@@ -409,14 +409,14 @@ MonoBehaviour:
   feet: {fileID: 3065252721006728880}
   antiClipYAmount: 0.1
   _acceleration: 60
-  _moveClamp: 13
+  _moveClamp: 11
   _deAcceleration: 60
   _apexBonus: 2
   _pushSpeedModifier: 0.95
   _fallClamp: -40
   _minFallSpeed: 80
   _maxFallSpeed: 120
-  _jumpHeight: 27
+  _jumpHeight: 25
   _jumpApexThreshold: 10
   _coyoteTimeThreshold: 0.1
   _jumpBuffer: 0.1
@@ -438,7 +438,6 @@ MonoBehaviour:
   maxDistance: 5
   startingWord: normal
   respawnScript: {fileID: 5353958712468905613}
-  swapAudioSource: {fileID: 0}
   SFX: {fileID: 2135530841198719290}
   SFXLayers:
     serializedVersion: 2
