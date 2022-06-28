@@ -438,6 +438,7 @@ MonoBehaviour:
   maxDistance: 5
   startingWord: normal
   respawnScript: {fileID: 5353958712468905613}
+  swapAudioSource: {fileID: 0}
   SFX: {fileID: 2135530841198719290}
   SFXLayers:
     serializedVersion: 2
@@ -469,7 +470,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.325}
+  m_Size: {x: 0.15, y: 0.3}
   m_EdgeRadius: 0
 --- !u!114 &5353958712468905613
 MonoBehaviour:
@@ -495,12 +496,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2a7d60663a98140a9e0c1eab32b4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXAudioSource: {fileID: 2107044825076226960}
   volume: 1
-  bufferTime: 0.5
+  bufferTime: 0.3
   walk_grass: {fileID: 8300000, guid: 1fc667bed15d37243bd5188485ab3f05, type: 3}
   walk_wood: {fileID: 8300000, guid: 53c0ff69b27b1db4f9a95a15487554ec, type: 3}
   swim: {fileID: 8300000, guid: 9b69c6e20321eb54991664bdbd2483f6, type: 3}
-  swap: {fileID: 0}
 --- !u!82 &2107044825076226960
 AudioSource:
   m_ObjectHideFlags: 0

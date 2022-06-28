@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     void Activate() =>  _active = true;
         
     private void Update() {
+        if (Input.GetButtonDown("Cancel"))
+            Application.Quit();
         if(!_active) return;
         // Calculate velocity
         Velocity = (transform.position - _lastPosition) / Time.deltaTime;
@@ -600,7 +602,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                     definitionWindow.enabled = true;
                     DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
                     dictObj.UpdateText();
-                    SFX.PlaySwapEffect();
                 }
                 else
                 {
@@ -613,7 +614,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                         definitionWindow = newWindow;
                         DictionaryObject dictObj = hitObject.GetComponent(typeof(DictionaryObject)) as DictionaryObject;
                         dictObj.UpdateText();
-                        SFX.PlaySwapEffect();
                     } else
                     {
                         definitionWindow.enabled = !definitionWindow.enabled;

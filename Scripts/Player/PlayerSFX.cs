@@ -4,67 +4,59 @@ using UnityEngine;
 
 public class PlayerSFX : MonoBehaviour
 {
+    [SerializeField] private AudioSource SFXAudioSource;
     [SerializeField] private float volume;
     [SerializeField] private float bufferTime;
     [SerializeField] private AudioClip walk_grass;
     [SerializeField] private AudioClip walk_wood;
     [SerializeField] private AudioClip swim;
-    [SerializeField] private AudioClip swap;
-
-    private AudioSource audioSource;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        audioSource = gameObject.GetComponent<AudioSource>();
-    }
 
     public void PlayAudio(string soundEffect)
     {          
-        if(!audioSource.isPlaying)
+        if(!SFXAudioSource.isPlaying)
         {
             if (soundEffect.Equals("Ground"))
-                audioSource.clip = walk_grass;
+                SFXAudioSource.clip = walk_grass;
             if (soundEffect.Equals("Water"))
-                audioSource.clip = swim;
+                SFXAudioSource.clip = swim;
             if (soundEffect.Equals("Object"))
-                audioSource.clip = walk_wood;
+                SFXAudioSource.clip = walk_wood;
             if(soundEffect.Equals("Platform"))
-                audioSource.clip = walk_wood;
-            audioSource.Play();
+                SFXAudioSource.clip = walk_wood;
+            SFXAudioSource.Play();
         }
         else
         {
-            if (audioSource.clip != walk_grass)
+            if (SFXAudioSource.clip != walk_grass)
             {
                 if(soundEffect.Equals("Ground"))
                 {
-                    audioSource.clip = walk_grass;
-                    audioSource.Play();
+                    SFXAudioSource.clip = walk_grass;
+                    SFXAudioSource.Play();
                 }
             } 
-            else if (audioSource.clip != swim)
+            else if (SFXAudioSource.clip != swim)
             {
                 if (soundEffect.Equals("Water"))
                 {
-                    audioSource.clip = swim;
-                    audioSource.Play();
+                    SFXAudioSource.clip = swim;
+                    SFXAudioSource.Play();
                 }
             }
-            else if (audioSource.clip != walk_wood)
+            else if (SFXAudioSource.clip != walk_wood)
             {
                 if(soundEffect.Equals("Object"))
                 {
-                    audioSource.clip = walk_wood;
-                    audioSource.Play();
+                    SFXAudioSource.clip = walk_wood;
+                    SFXAudioSource.Play();
                 }
             }
-            else if (audioSource.clip != walk_wood)
+            else if (SFXAudioSource.clip != walk_wood)
             {
                 if (soundEffect.Equals("Ground"))
                 {
-                    audioSource.clip = walk_wood;
-                    audioSource.Play();
+                    SFXAudioSource.clip = walk_wood;
+                    SFXAudioSource.Play();
                 }
             }
             else
@@ -82,13 +74,7 @@ public class PlayerSFX : MonoBehaviour
         if(time > nextTime)
         {
             nextTime += bufferTime;
-            audioSource.PlayScheduled(nextTime);
+            SFXAudioSource.PlayScheduled(nextTime);
         }
-    }
-
-    public void PlaySwapEffect()
-    {
-        audioSource.clip = swap;
-        audioSource.Play();
     }
 }

@@ -190,6 +190,7 @@ public class DictionaryObject : MonoBehaviour
     public string SwapWord(string newWord)
     {
         swappable = newWord;
+        swapAudioSource.Play();
         return definition.Swap(swappable);
     }
     
@@ -646,6 +647,9 @@ public class DictionaryObject : MonoBehaviour
         Gizmos.DrawWireCube(transform.position + _characterBounds.center + move, _characterBounds.size);
     }
     #endregion
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource swapAudioSource;
 }
 
 public enum ActiveKeyword
