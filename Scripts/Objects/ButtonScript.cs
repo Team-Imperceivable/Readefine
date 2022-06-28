@@ -8,21 +8,34 @@ public class ButtonScript : MonoBehaviour
     [SerializeField] private SpriteRenderer buttonPressedSprite;
     [SerializeField] private Bounds checkBounds;
     [SerializeField] private LayerMask pressableLayers;
+    [SerializeField] private AudioClip buttonEffect;
     public bool pressed { get; private set; }
 
-    bool initPress;
-
+    private AudioSource audioSource;
 
     void Start()
     {
         normalButtonSprite.enabled = true;
         buttonPressedSprite.enabled = false;
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.clip = buttonEffect;
     }
 
     // Update is called once per frame
     void Update()
     {
-        pressed = checkPressed();
+        if(checkPressed())
+        {
+            if(!pressed)
+            {
+                audioSource.Play();
+            }
+            pressed = true;
+        } else
+        {
+            pressed = false;
+        }
+        
         UpdateSprite();
     }
 
@@ -37,16 +50,10 @@ public class ButtonScript : MonoBehaviour
         {
             buttonPressedSprite.enabled = true;
             normalButtonSprite.enabled = false;
-            if (initPress)
-            {
-                GetComponent<AudioSource>().Play();
-                initPress = false;
-            }
         } else
         {
             buttonPressedSprite.enabled = false;
             normalButtonSprite.enabled = true;
-            initPress = true;
         }
             
     }

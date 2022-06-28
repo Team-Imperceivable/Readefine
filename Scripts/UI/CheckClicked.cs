@@ -8,6 +8,8 @@ public class CheckClicked : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 {
     [SerializeField] private string clickedMethodName;
     [SerializeField] private Color hoverColor;
+    [SerializeField] private AudioSource clickAudio;
+    [SerializeField] private AudioClip clickEffect;
     private Image text;
     private Color normalColor;
 
@@ -15,10 +17,12 @@ public class CheckClicked : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         text = gameObject.GetComponent<Image>();
         normalColor = text.color;
+        clickAudio.clip = clickEffect;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        clickAudio.Play();
         SendMessageUpwards(clickedMethodName);
     }
 

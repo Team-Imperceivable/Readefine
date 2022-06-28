@@ -29,6 +29,8 @@ public class DictionaryObject : MonoBehaviour
         normalLayer = gameObject.layer;
         onTopBounds = new Bounds(head.position, new Vector3(onTopCheckWidth, onTopCheckHeight, 0f));
         UpdateText();
+
+        swapAudioSource.clip = swapEffect;
     }
 
     // Update is called once per frame
@@ -650,6 +652,7 @@ public class DictionaryObject : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] private AudioSource swapAudioSource;
+    [SerializeField] private AudioClip swapEffect;
 }
 
 public enum ActiveKeyword
