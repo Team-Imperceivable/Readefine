@@ -1,6 +1,6 @@
 **This game was made in 5 days, in preparation for the 2022 GMTK Game Jam. This is the assets folder of that game**
 
-Full Game: https://drive.google.com/file/d/1KGToDnVbOnBgGGenfJhYRFQRK9BL97pU/view?usp=sharing
+Full Game: https://drive.google.com/drive/folders/13fyTXn1dcqP31Jmojokk7bp3Ur-awHJI?usp=sharing
 
 Credit to:
  - Kevin MacLeod, 8bit Dungeon Level, Pixelland, Casa Bossa Nova, Local Forest - Elevator
