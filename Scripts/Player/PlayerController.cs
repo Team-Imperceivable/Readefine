@@ -59,7 +59,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         MoveCharacter(); // Actually perform the axis movement
         if(insideGround())
         {
-            moveUp();
+            if(_colDown)
+            {
+                moveUp();
+            } else if(_colUp)
+            {
+                moveDown();
+            }
         }
 
         CheckInteract();
@@ -228,13 +234,19 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private bool insideGround()
     {
         Collider2D contact = Physics2D.OverlapBox(transform.position + _characterBounds.center, _characterBounds.size, 0f, _groundLayer);
-        return contact != null && !_colUp;
+        return contact != null;
     }
 
     private void moveUp()
     {
         Vector3 upVector = new Vector3(0f, antiClipYAmount, 0f);
         transform.position += upVector;
+    }
+
+    private void moveDown()
+    {
+        Vector3 downVector = new Vector3(0f, -antiClipYAmount, 0f);
+        transform.position += downVector;
     }
 
     private void OnDrawGizmos() {
@@ -516,7 +528,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
                 if (i == 1) {
                     if (_currentVerticalSpeed < 0) _currentVerticalSpeed = 0;
                     var dir = transform.position - hit.transform.position;
-                    transform.position += dir.normalized * move.magnitude;
+                    //transform.position += dir.normalized * move.magnitude;
                 }
 
                 return;
