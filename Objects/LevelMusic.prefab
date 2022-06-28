@@ -142,11 +142,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songs:
-  - {fileID: 8300000, guid: 7bf9993f2f6842540b7ccea6ba8a1009, type: 3}
   - {fileID: 8300000, guid: f2c5fa4ed0dbf60479fe133fe4858232, type: 3}
   - {fileID: 8300000, guid: 1134051cea64aa24d8890f71dfa4c9e3, type: 3}
   - {fileID: 8300000, guid: e52b5f134327e274aaea5860259ac804, type: 3}
   - {fileID: 8300000, guid: 8a06b7cd74e8c704493de876dbc01bfc, type: 3}
+  - {fileID: 8300000, guid: 7bf9993f2f6842540b7ccea6ba8a1009, type: 3}
   - {fileID: 8300000, guid: 69e272af78bace24cb4db741a3e79957, type: 3}
   - {fileID: 8300000, guid: 19afa89855e52a444aaab6c77ed31d02, type: 3}
   - {fileID: 8300000, guid: 0a02b3680107d004b91c302054b689a1, type: 3}
